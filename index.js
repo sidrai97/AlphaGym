@@ -17,7 +17,7 @@ app.get('/', function(req, res) {
 	res.send("Hi, I am a AlphaBot")
 })
 
-let token = "EAAHTevQllzYBAHA1JPGvXhZCPCgfmWRG8puOODqonELRWUozjt2BzslrKq81ZCJFy8MEIbgibz9ZCyAwLDU6YSy7d0FjH1syqZBCS9SphBdYcfIMjqWnt8hAZCBnX4uh8zClq36WJeMFoTyJYWlo0K7xLXQiUZBADJ2iRrAfNopQZDZD"
+let token = "sidrai97"
 
 // Facebook 
 app.get('/webhook/', function(req, res) {
