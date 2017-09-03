@@ -125,8 +125,7 @@ function sendGenericMessage(recipientId, messageText) {
 
 function sendDefaultTextMessage(recipientId)
 {
-	var messageText="Try to use from the following commands.\n\n"+
-	"Say 'exercise guide' to learn about weight training execises.\n\n"+
+	var messageText="Say 'exercise guide' to learn about weight training execises.\n\n"+
 	"Say 'schedule' to know how you can track your workout.\n\n"+
 	"Say 'stats' to see your workout statistics.\n\n"+
 	"Say 'help' for this help reminder.";
