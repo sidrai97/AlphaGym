@@ -45,6 +45,9 @@ app.post('/webhook', function (req, res) {
 			entry.messaging.forEach(function(event) {
 			if (event.message) {
 				receivedMessage(event);
+			}
+			else if (event.postback){
+
 			} 
 			else {
 				console.log("Webhook received unknown event: ", event);
@@ -54,7 +57,24 @@ app.post('/webhook', function (req, res) {
 		res.sendStatus(200);
 	}
 });
-	
+
+function receivedPostback(event) {
+	var senderID = event.sender.id;
+	var recipientID = event.recipient.id;
+	var timeOfPostback = event.timestamp;
+  
+	// The 'payload' param is a developer-defined field which is set in a postback 
+	// button for Structured Messages. 
+	var payload = event.postback.payload;
+  
+	console.log("Received postback for user %d and page %d with payload '%s' " + 
+	"at %d", senderID, recipientID, payload, timeOfPostback);
+  
+	// When a postback is called, we'll send a message back to the sender to 
+	// let them know it was successful
+	sendTextMessage(senderID, payload);
+}
+
 function receivedMessage(event) {
 	var senderID = event.sender.id;
 	var recipientID = event.recipient.id;
@@ -100,14 +120,34 @@ function sendGenericMessage(recipientId, messageText) {
 
 function sendDefaultTextMessage(recipientId)
 {
-	var messageTextArray=["Ok try to use from the following commands",
-	"Say 'exercise guide' to learn about weight training execises",
-	"Say 'schedule' to know how you can track your workout",
-	"Say 'stats' to see your workout statistics",
-	"Say 'help' to see this help reminder"];
-	for(let i=0;i<messageTextArray.length;i++){
-		sendTextMessage(recipientId,messageTextArray[i])
-	}
+	var messageText="Ok try to use from the following commands\n"+
+	"Say 'exercise guide' to learn about weight training execises\n"+
+	"Say 'schedule' to know how you can track your workout\n"+
+	"Say 'stats' to see your workout statistics\n"+
+	"Say 'help' to see this help reminder";
+	var messageData = {
+		recipient: {
+			id: recipientId
+	  	},
+	  	message: {
+			text: messageText,
+			quick_replies:[
+				{
+					"content_type":"text","title":"exercise guide","payload":"exercise guide"
+				},
+				{
+					"content_type":"text","title":"schedule","payload":"schedule"
+				},
+				{
+					"content_type":"text","title":"stats","payload":"stats"
+				},
+				{
+					"content_type":"text","title":"help","payload":"help"
+				}
+			]
+	  	}
+	};
+	callSendAPI(messageData);
 }
 
 function sendTextMessage(recipientId, messageText) {
