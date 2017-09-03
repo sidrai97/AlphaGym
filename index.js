@@ -91,22 +91,20 @@ function receivedMessage(event) {
 	var messageAttachments = message.attachments;
   
 	if (messageText) {
-	  // If we receive a text message, check to see if it matches a keyword
-	  // and send back the example. Otherwise, just echo the text we received.
-		switch (messageText.toLowerCase()) {
-			case 'generic':
-				sendGenericMessage(senderID);
-				break;
-			case 'help':
+	  	// If we receive a text message, check to see if it matches a keyword
+	  	// and send back the example. Otherwise, just echo the text we received.
+		var msg=messageText.toLowerCase();
+		switch (true) {
+			case msg.includes('help'):
 				sendDefaultTextMessage(senderID);
 				break;
-			case 'schedule':
+			case msg.includes('stats'):
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
-			case 'stats':
+			case msg.includes('schedule'):
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
-			case 'exercise guide':
+			case msg.includes('exercise guide'):
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
 			default:
@@ -123,6 +121,7 @@ function sendGenericMessage(recipientId, messageText) {
 	// To be expanded in later sections
 }
 
+// For default and help message
 function sendDefaultTextMessage(recipientId)
 {
 	var quickReply=[
@@ -142,16 +141,35 @@ function sendDefaultTextMessage(recipientId)
 	sendTextMessage(recipientId,"Say 'help' for this help reminder.", quickReply);
 }
 
+// text message and buttons as options
+function sendButtonMessage(recipientID,messageText,buttonsArray){
+	var messageData = {
+		recipient: {
+			id: recipientId
+		},
+		attachment:{
+			type:"template",
+			payload:{
+				template_type:"button",
+				text:messageText,
+				buttons:buttonsArray
+			}
+		  }
+	};
+	callSendAPI(messageData);
+}
+
+// text message and quick reply
 function sendTextMessage(recipientId, messageText, quickReply) {
 	var messageData;
 	if (quickReply === undefined){
 		messageData = {
 			recipient: {
 				id: recipientId
-			  },
-			  message: {
+			},
+			message: {
 				text: messageText
-			  }
+			}
 		};
 	}
 	else{
