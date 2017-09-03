@@ -47,7 +47,7 @@ app.post('/webhook', function (req, res) {
 				receivedMessage(event);
 			}
 			else if (event.postback){
-
+				receivedPostback(event);
 			} 
 			else {
 				console.log("Webhook received unknown event: ", event);
@@ -120,11 +120,11 @@ function sendGenericMessage(recipientId, messageText) {
 
 function sendDefaultTextMessage(recipientId)
 {
-	var messageText="Ok try to use from the following commands\n"+
-	"Say 'exercise guide' to learn about weight training execises\n"+
-	"Say 'schedule' to know how you can track your workout\n"+
-	"Say 'stats' to see your workout statistics\n"+
-	"Say 'help' to see this help reminder";
+	var messageText="Ok try to use from the following commands\n\n"+
+	"Say 'exercise guide' to learn about weight training execises\n\n"+
+	"Say 'schedule' to know how you can track your workout\n\n"+
+	"Say 'stats' to see your workout statistics\n\n"+
+	"Say 'help' for this help reminder";
 	var messageData = {
 		recipient: {
 			id: recipientId
@@ -140,9 +140,6 @@ function sendDefaultTextMessage(recipientId)
 				},
 				{
 					"content_type":"text","title":"stats","payload":"stats"
-				},
-				{
-					"content_type":"text","title":"help","payload":"help"
 				}
 			]
 	  	}
