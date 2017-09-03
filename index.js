@@ -136,9 +136,9 @@ function sendDefaultTextMessage(recipientId)
 			"content_type":"text","title":"stats","payload":"stats"
 		}
 	];
-	sendTextMessage(recipientId,"Say 'exercise guide' to learn weight training execises.");
-	sendTextMessage(recipientId,"Say 'schedule' to know how you can track your workout.");
-	sendTextMessage(recipientId,"You can see your workout statistics with the 'stats' command.");
+	sendTextMessage(recipientId,"Say 'exercise guide' to learn weight training execises.",quickReply);
+	sendTextMessage(recipientId,"Say 'schedule' to know how you can track your workout.",quickReply);
+	sendTextMessage(recipientId,"You can see your workout statistics with the 'stats' command.",quickReply);
 	sendTextMessage(recipientId,"Say 'help' for this help reminder.", quickReply);
 }
 
