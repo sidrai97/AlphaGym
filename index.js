@@ -112,7 +112,7 @@ function callSendAPI(messageData) {
 			var recipientId = body.recipient_id;
 			var messageId = body.message_id;
 
-			console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId);
+			console.log("Successfully sent the message with id %s to recipient %s", messageId, recipientId);
 		} 
 		else {
 			console.error("Unable to send message.");
@@ -124,5 +124,5 @@ function callSendAPI(messageData) {
 
 // run app
 app.listen(app.get('port'), function() {
-	console.log("running: port")
+	console.log("running: "+app.get('port'))
 })
