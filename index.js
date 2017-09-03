@@ -96,9 +96,7 @@ function receivedMessage(event) {
 		var msg=messageText.toLowerCase();
 		switch (true) {
 			case msg.includes('hi') || msg.includes('hey') || msg.includes('yo'):
-				var userData=userProfileAPI(senderID,true);console.log('userdata mila',userData);
-				var name=userData.first_name;
-				sendTextMessage(senderID,"Hi "+name+"!\n Try using the following commands");
+				sendTextMessage(senderID,"Hi! Try using the following commands");
 				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
 				break;
 			case msg.includes('help'):
@@ -215,7 +213,7 @@ function callSendAPI(messageData) {
 }
 
 // get user data from facebook
-function userProfileAPI(user_page_id,returnSwitch){
+function userProfileAPI(user_page_id){
 	request({
 		uri: 'https://graph.facebook.com/v2.6/'+user_page_id,
 		qs: { access_token: access },
@@ -223,9 +221,6 @@ function userProfileAPI(user_page_id,returnSwitch){
 	}, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			console.log("user profile body:", body);
-			if(returnSwitch != undefined){
-				if(returnSwitch){console.log('return karto');return body;}
-			}
 		} 
 		else {
 			console.error("Unable to send message.");
