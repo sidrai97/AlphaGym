@@ -106,7 +106,7 @@ function sendDefaultTextMessage(recipientId)
 	"Say 'stats' to see your workout statistics",
 	"Say 'help' to see this help reminder"];
 	for(let i=0;i<messageTextArray.length;i++){
-		setTimeout(sendTextMessage(recipientId,messageTextArray[i]), 200)			
+		sendTextMessage(recipientId,messageTextArray[i])
 	}
 }
 
