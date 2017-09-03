@@ -145,7 +145,7 @@ function sendDefaultTextMessage(recipientId)
 
 function sendTextMessage(recipientId, messageText, quickReply) {
 	var messageData;
-	if (quick_replies === undefined){
+	if (quickReply === undefined){
 		messageData = {
 			recipient: {
 				id: recipientId
