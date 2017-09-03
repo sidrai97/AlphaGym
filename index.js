@@ -73,11 +73,20 @@ function receivedMessage(event) {
 	  // and send back the example. Otherwise, just echo the text we received.
 		switch (messageText) {
 			case 'generic':
-		  	sendGenericMessage(senderID);
-		  	break;
-  
+				sendGenericMessage(senderID);
+				break;
+			case 'help':
+				sendDefaultTextMessage(senderID);
+				break;
+			case 'stats':
+				sendTextMessage(senderID,'feature coming soon!')
+				break;
+			case 'exercise guide':
+				sendTextMessage(senderID,'feature coming soon!')
+				break;
 			default:
-		  	sendTextMessage(senderID, messageText);
+				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
+				sendDefaultTextMessage(senderID);
 	  	}
 	} 
 	else if (messageAttachments) {
@@ -87,6 +96,18 @@ function receivedMessage(event) {
 
 function sendGenericMessage(recipientId, messageText) {
 	// To be expanded in later sections
+}
+
+function sendDefaultTextMessage(recipientId)
+{
+	var messageTextArray=["Ok try to use from the following commands",
+	"Say 'exercise guide' to learn about weight training execises",
+	"Say 'schedule' to know how you can track your workout",
+	"Say 'stats' to see your workout statistics",
+	"Say 'help' to see this help reminder"];
+	for(let i=0;i<messageTextArray.length;i++){
+		sendTextMessage(recipientId,messageTextArray[i])
+	}
 }
 
 function sendTextMessage(recipientId, messageText) {
