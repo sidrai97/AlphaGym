@@ -96,7 +96,7 @@ function receivedMessage(event) {
 		var msg=messageText.toLowerCase();
 		switch (true) {
 			case msg.includes('hi') || msg.includes('hey') || msg.includes('yo'):
-				var userData=userProfileAPI(senderID,true);
+				var userData=userProfileAPI(senderID,true);console.log('userdata mila',userData);
 				var name=userData.first_name;
 				sendTextMessage(senderID,"Hi "+name+"!\n Try using the following commands");
 				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
@@ -223,8 +223,8 @@ function userProfileAPI(user_page_id,returnSwitch){
 	}, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			console.log("user profile body:", body);
-			if(returnSwitch !== undefined){
-				if(returnSwitch){return body;}
+			if(returnSwitch != undefined){
+				if(returnSwitch){console.log('return karto');return body;}
 			}
 		} 
 		else {
