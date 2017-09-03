@@ -136,7 +136,6 @@ function sendDefaultTextMessage(recipientId)
 			"content_type":"text","title":"stats","payload":"stats"
 		}
 	];
-	sendTextMessage(recipientId,"Try using from the given commands.");
 	sendTextMessage(recipientId,"Say 'exercise guide' to learn weight training execises.");
 	sendTextMessage(recipientId,"Say 'schedule' to know how you can track your workout.");
 	sendTextMessage(recipientId,"You can see your workout statistics with the 'stats' command.");
