@@ -95,6 +95,12 @@ function receivedMessage(event) {
 	  	// and send back the example. Otherwise, just echo the text we received.
 		var msg=messageText.toLowerCase();
 		switch (true) {
+			case msg.includes('hi') || msg.includes('hey') || msg.includes('yo'):
+				userData=userProfileAPI(senderID,true);
+				name=userData.first_name;
+				sendTextMessage(senderID,"Hi "+name+"!\n Try using the following commands");
+				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
+				break;
 			case msg.includes('help'):
 				sendDefaultTextMessage(senderID);
 				break;
@@ -209,7 +215,7 @@ function callSendAPI(messageData) {
 }
 
 // get user data from facebook
-function userProfileAPI(user_page_id){
+function userProfileAPI(user_page_id,returnSwitch){
 	request({
 		uri: 'https://graph.facebook.com/v2.6/'+user_page_id,
 		qs: { access_token: access },
@@ -217,6 +223,9 @@ function userProfileAPI(user_page_id){
 	}, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			console.log("user profile body:", body);
+			if(returnSwitch !== undefined){
+				if(returnSwitch){return body;}
+			}
 		} 
 		else {
 			console.error("Unable to send message.");
