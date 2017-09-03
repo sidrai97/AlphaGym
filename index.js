@@ -125,39 +125,43 @@ function sendGenericMessage(recipientId, messageText) {
 
 function sendDefaultTextMessage(recipientId)
 {
-	var messageText="Say 'exercise guide' to learn about weight training execises.\n\n"+
-	"Say 'schedule' to know how you can track your workout.\n\n"+
-	"Say 'stats' to see your workout statistics.\n\n"+
-	"Say 'help' for this help reminder.";
-	var messageData = {
+	var quickReply=[
+		{
+			"content_type":"text","title":"exercise guide","payload":"exercise guide"
+		},
+		{
+			"content_type":"text","title":"schedule","payload":"schedule"
+		},
+		{
+			"content_type":"text","title":"stats","payload":"stats"
+		}
+	];
+	sendTextMessage(recipientId,"Try using from the given commands.");
+	sendTextMessage(recipientId,"Say 'exercise guide' to learn weight training execises.");
+	sendTextMessage(recipientId,"Say 'schedule' to know how you can track your workout.");
+	sendTextMessage(recipientId,"You can see your workout statistics with the 'stats' command.");
+	sendTextMessage(recipientId,"Say 'help' for this help reminder.", quickReply);
+}
+
+function sendTextMessage(recipientId, messageText, quickReply) {
+	var messageData;
+	if (quick_replies === undefined){
+		messageData = {
+			recipient: {
+				id: recipientId
+			  },
+			  message: {
+				text: messageText
+			  }
+		};
+	}
+	messageData = {
 		recipient: {
 			id: recipientId
 	  	},
 	  	message: {
 			text: messageText,
-			quick_replies:[
-				{
-					"content_type":"text","title":"exercise guide","payload":"exercise guide"
-				},
-				{
-					"content_type":"text","title":"schedule","payload":"schedule"
-				},
-				{
-					"content_type":"text","title":"stats","payload":"stats"
-				}
-			]
-	  	}
-	};
-	callSendAPI(messageData);
-}
-
-function sendTextMessage(recipientId, messageText) {
-	var messageData = {
-		recipient: {
-			id: recipientId
-	  	},
-	  	message: {
-			text: messageText
+			quick_replies: quickReply
 	  	}
 	};
 	callSendAPI(messageData);
