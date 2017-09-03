@@ -95,8 +95,8 @@ function receivedMessage(event) {
 	  	// and send back the example. Otherwise, just echo the text we received.
 		var msg=messageText.toLowerCase();
 		switch (true) {
-			case msg.includes('hi') || msg.includes('hey') || msg.includes('yo'):
-				sendTextMessage(senderID,"Hi! Try using the following commands");
+			case msg.includes('hi') || msg.includes('hey') || msg.includes('yo') || msg.includes('hy'):
+				sendTextMessage(senderID,"Hi Alpha! You can use the following commands to know more.");
 				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
 				break;
 			case msg.includes('help'):
@@ -113,7 +113,7 @@ function receivedMessage(event) {
 				break;
 			default:
 				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
-				setTimeout(function(){sendDefaultTextMessage(senderID);},2000);
+				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
 	  	}
 	} 
 	else if (messageAttachments) {
