@@ -111,7 +111,7 @@ function receivedMessage(event) {
 				break;
 			default:
 				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
-				sendDefaultTextMessage(senderID);
+				setTimeout(function(){sendDefaultTextMessage(senderID);},5000);
 	  	}
 	} 
 	else if (messageAttachments) {
