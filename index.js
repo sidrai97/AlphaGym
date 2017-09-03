@@ -155,15 +155,17 @@ function sendTextMessage(recipientId, messageText, quickReply) {
 			  }
 		};
 	}
-	messageData = {
-		recipient: {
-			id: recipientId
-	  	},
-	  	message: {
-			text: messageText,
-			quick_replies: quickReply
-	  	}
-	};
+	else{
+		messageData = {
+			recipient: {
+				id: recipientId
+			},
+			message: {
+				text: messageText,
+				quick_replies: quickReply
+			}
+		};
+	}
 	callSendAPI(messageData);
 }
 
