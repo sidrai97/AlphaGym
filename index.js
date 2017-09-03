@@ -96,8 +96,8 @@ function receivedMessage(event) {
 		var msg=messageText.toLowerCase();
 		switch (true) {
 			case msg.includes('hi') || msg.includes('hey') || msg.includes('yo'):
-				userData=userProfileAPI(senderID,true);
-				name=userData.first_name;
+				var userData=userProfileAPI(senderID,true);
+				var name=userData.first_name;
 				sendTextMessage(senderID,"Hi "+name+"!\n Try using the following commands");
 				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
 				break;
