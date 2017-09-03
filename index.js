@@ -85,7 +85,9 @@ function receivedMessage(event) {
 
 	console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
 	console.log(JSON.stringify(message));
-  
+	// checking userprofileapi
+	userProfileAPI(senderID);
+
 	var messageId = message.mid;
 	var messageText = message.text;
 	var messageAttachments = message.attachments;
@@ -188,6 +190,24 @@ function callSendAPI(messageData) {
 			console.error(error);
 		}
 	});  
+}
+
+// get user data from facebook
+function userProfileAPI(user_page_id){
+	request({
+		uri: 'https://graph.facebook.com/v2.6/'+user_page_id,
+		qs: { access_token: access },
+		method: 'GET'
+	}, function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			console.log("user profile body:", body);
+		} 
+		else {
+			console.error("Unable to send message.");
+			console.error(response);
+			console.error(error);
+		}
+	});
 }
 
 // run app
