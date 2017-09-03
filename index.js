@@ -45,9 +45,11 @@ app.post('/webhook', function (req, res) {
 			entry.messaging.forEach(function(event) {
 			if (event.message) {
 				receivedMessage(event);
+				console.log("Webhook received message event: ", event);
 			}
 			else if (event.postback){
 				receivedPostback(event);
+				console.log("Webhook received postback event: ", event);
 			} 
 			else {
 				console.log("Webhook received unknown event: ", event);
@@ -98,6 +100,9 @@ function receivedMessage(event) {
 			case 'help':
 				sendDefaultTextMessage(senderID);
 				break;
+			case 'schedule':
+				sendTextMessage(senderID,'feature coming soon!')
+				break;
 			case 'stats':
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
@@ -120,11 +125,11 @@ function sendGenericMessage(recipientId, messageText) {
 
 function sendDefaultTextMessage(recipientId)
 {
-	var messageText="Ok try to use from the following commands\n\n"+
-	"Say 'exercise guide' to learn about weight training execises\n\n"+
-	"Say 'schedule' to know how you can track your workout\n\n"+
-	"Say 'stats' to see your workout statistics\n\n"+
-	"Say 'help' for this help reminder";
+	var messageText="Try to use from the following commands.\n\n"+
+	"Say 'exercise guide' to learn about weight training execises.\n\n"+
+	"Say 'schedule' to know how you can track your workout.\n\n"+
+	"Say 'stats' to see your workout statistics.\n\n"+
+	"Say 'help' for this help reminder.";
 	var messageData = {
 		recipient: {
 			id: recipientId
@@ -159,6 +164,7 @@ function sendTextMessage(recipientId, messageText) {
 	callSendAPI(messageData);
 }
 
+// Send Message to Facebook
 function callSendAPI(messageData) {
 	request({
 		uri: 'https://graph.facebook.com/v2.6/me/messages',
