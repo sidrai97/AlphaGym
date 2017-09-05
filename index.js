@@ -86,7 +86,36 @@ function receivedPostback(event) {
 				"content_type":"text","title":(i+1).toString(),"payload":payload+":pos:"+i.toString()
 			})
 		}
-		var buttonsArray=[{type:"postback",title:"Load More...",payload:payload+":paging:10"}];
+		var buttonsArray;
+		if(range == muscle_exercises.length){
+			buttonsArray=[];
+		}
+		else{
+			buttonsArray=[{type:"postback",title:"Load More...",payload:payload+":paging:10"}];
+		}
+		sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
+	}
+	else if(payload.includes("paging")){
+		var muscle=payload.substring(0,payload.indexOf(":"));
+		var paging=payload.substring(payload.lastIndexOf(":"));
+		var muscle_exercises = exercises_data['data'][muscle];
+		var quickReply=[];
+		var range = (muscle_exercises.length-paging>10)?10:muscle_exercises.length-paging;
+		var messageText = capitalizeFirstLetter(payload)+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
+		for(var i=paging; i<(paging+range); i++){
+			var temp = (i+1).toString()+". "+muscle_exercises[i]["name"]+"\n\n";
+			messageText += temp;
+			quickReply.push({
+				"content_type":"text","title":(i+1).toString(),"payload":muscle+":pos:"+i.toString()
+			})
+		}
+		var buttonsArray;
+		if(paging+range === muscle_exercises.length){
+			buttonsArray=[];
+		}
+		else{
+			buttonsArray=[{type:"postback",title:"Load More...",payload:muscle+":paging:"+(paging+range)}];
+		}
 		sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
 	}
 	else{
