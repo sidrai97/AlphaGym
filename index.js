@@ -207,7 +207,7 @@ function sendMuscleGroups(recipientID,muscles){
 		buttonsArray2.push({type:"postback",title:title,payload:muscles[i]})
 	}
 	sendButtonMessage(recipientID,"Choose a Muscle to view its exercises",buttonsArray)
-	sendButtonMessage(recipientID,"",buttonsArray2)
+	//sendButtonMessage(recipientID,"",buttonsArray2)
 }
 
 // Send Message to Facebook
