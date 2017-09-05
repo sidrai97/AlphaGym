@@ -87,7 +87,9 @@ function receivedPostback(event) {
 		}
 		sendTextMessage(senderID, messageText, quickReply);
 	}
-	sendTextMessage(senderID,payload);
+	else{
+		sendTextMessage(senderID,payload);
+	}
 }
 
 function receivedMessage(event) {
