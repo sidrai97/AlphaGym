@@ -77,7 +77,7 @@ function receivedPostback(event) {
 	if(muscles.includes(payload)){
 		var muscle_exercises = exercises_data['data'][payload];
 		var quickReply=[];
-		var messageText = payload.capitalizeFirstLetter()+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
+		var messageText = capitalizeFirstLetter(payload)+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
 		for(var i=0; i<10; i++){
 			var temp = (i+1).toString()+". "+muscle_exercises[i][name]+"\n\n";
 			messageText += temp;
