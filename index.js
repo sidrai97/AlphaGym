@@ -76,16 +76,18 @@ function receivedPostback(event) {
 
 	if(muscles.includes(payload)){
 		var muscle_exercises = exercises_data['data'][payload];
+		var range=(muscle_exercises.length>10)?10:muscle_exercises.length;
 		var quickReply=[];
 		var messageText = capitalizeFirstLetter(payload)+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
-		for(var i=0; i<10; i++){
+		for(var i=0; i<range; i++){
 			var temp = (i+1).toString()+". "+muscle_exercises[i]["name"]+"\n\n";
 			messageText += temp;
 			quickReply.push({
 				"content_type":"text","title":(i+1).toString(),"payload":payload+":pos:"+i.toString()
 			})
 		}
-		sendTextMessage(senderID, messageText, quickReply);
+		var buttonsArray=[{type:"postback",title:"Load More...",payload:payload+":paging:10"}];
+		sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
 	}
 	else{
 		sendTextMessage(senderID,payload);
@@ -162,22 +164,43 @@ function sendDefaultTextMessage(recipientId)
 }
 
 // text message and 3 buttons as options
-function sendButtonMessage(recipientID,messageText,buttonsArray){
-	var messageData = {
-		recipient: {
-			id: recipientID
-		},
-		message:{
-			attachment:{
-				type:"template",
-				payload:{
-					template_type:"button",
-					text:messageText,
-					buttons:buttonsArray
+function sendButtonMessage(recipientID,messageText,buttonsArray,quickReply){
+	var messageText;
+	if(quickReply === undefined){
+		messageData = {
+			recipient: {
+				id: recipientID
+			},
+			message:{
+				attachment:{
+					type:"template",
+					payload:{
+						template_type:"button",
+						text:messageText,
+						buttons:buttonsArray
+					}
 				}
 			}
-		}
-	};
+		};
+	}
+	else{
+		messageData = {
+			recipient: {
+				id: recipientID
+			},
+			message:{
+				attachment:{
+					type:"template",
+					payload:{
+						template_type:"button",
+						text:messageText,
+						buttons:buttonsArray
+					}
+				},
+				quick_replies:quickReply
+			}
+		};
+	}
 	callSendAPI(messageData);
 }
 
