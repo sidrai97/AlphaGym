@@ -151,7 +151,7 @@ function sendDefaultTextMessage(recipientId)
 function sendButtonMessage(recipientID,messageText,buttonsArray){
 	var messageData = {
 		recipient: {
-			id: recipientId
+			id: recipientID
 		},
 		attachment:{
 			type:"template",
