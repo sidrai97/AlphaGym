@@ -79,7 +79,7 @@ function receivedPostback(event) {
 		var quickReply=[];
 		var messageText = capitalizeFirstLetter(payload)+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
 		for(var i=0; i<10; i++){
-			var temp = (i+1).toString()+". "+muscle_exercises[i][name]+"\n\n";
+			var temp = (i+1).toString()+". "+muscle_exercises[i]["name"]+"\n\n";
 			messageText += temp;
 			quickReply.push({
 				"content_type":"text","title":(i+1).toString(),"payload":payload+":pos:"+i.toString()
