@@ -153,14 +153,16 @@ function sendButtonMessage(recipientID,messageText,buttonsArray){
 		recipient: {
 			id: recipientID
 		},
-		attachment:{
-			type:"template",
-			payload:{
-				template_type:"button",
-				text:messageText,
-				buttons:buttonsArray
+		message:{
+			attachment:{
+				type:"template",
+				payload:{
+					template_type:"button",
+					text:messageText,
+					buttons:buttonsArray
+				}
 			}
-		  }
+		}
 	};
 	callSendAPI(messageData);
 }
