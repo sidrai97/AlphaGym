@@ -202,7 +202,7 @@ function sendMuscleGroups(recipientID,muscles){
 			var title = capitalizeFirstLetter(muscles[j])
 			buttonsArray.push({type:"postback",title:title,payload:muscles[j]})
 		}
-		sendButtonMessage(recipientID,"Choose a Muscle to view its exercises",buttonsArray)
+		sendButtonMessage(recipientID," ",buttonsArray)
 	}
 }
 
