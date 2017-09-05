@@ -165,7 +165,7 @@ function sendDefaultTextMessage(recipientId)
 
 // text message and 3 buttons as options
 function sendButtonMessage(recipientID,messageText,buttonsArray,quickReply){
-	var messageText;
+	var messageData;
 	if(quickReply === undefined){
 		messageData = {
 			recipient: {
