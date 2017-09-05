@@ -69,13 +69,25 @@ function receivedPostback(event) {
 	// The 'payload' param is a developer-defined field which is set in a postback 
 	// button for Structured Messages. 
 	var payload = event.postback.payload;
-  
+	var muscles = Object.keys(exercises_data['data'])
+
 	console.log("Received postback for user %d and page %d with payload '%s' " + 
 	"at %d", senderID, recipientID, payload, timeOfPostback);
-  
-	// When a postback is called, we'll send a message back to the sender to 
-	// let them know it was successful
-	sendTextMessage(senderID, payload);
+
+	if(muscles.includes(payload)){
+		var muscle_exercises = exercises_data['data'][payload];
+		var quickReply=[];
+		var messageText = payload.capitalizeFirstLetter()+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
+		for(var i=0; i<10; i++){
+			var temp = (i+1).toString()+". "+muscle_exercises[i][name]+"\n\n";
+			messageText += temp;
+			quickReply.push({
+				"content_type":"text","title":(i+1).toString(),"payload":payload+":pos:"+i.toString()
+			})
+		}
+		sendTextMessage(senderID, messageText, quickReply);
+	}
+	sendTextMessage(senderID,payload);
 }
 
 function receivedMessage(event) {
@@ -147,7 +159,7 @@ function sendDefaultTextMessage(recipientId)
 	sendTextMessage(recipientId,"Say 'help' for this help reminder.", quickReply);
 }
 
-// text message and buttons as options
+// text message and 3 buttons as options
 function sendButtonMessage(recipientID,messageText,buttonsArray){
 	var messageData = {
 		recipient: {
