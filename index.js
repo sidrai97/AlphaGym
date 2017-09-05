@@ -3,6 +3,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
+const exercises_data = require('./scrapper/exercises_data.json')
 
 const app = express()
 const token = process.env.FB_VERIFY_TOKEN
@@ -109,7 +110,8 @@ function receivedMessage(event) {
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
 			case msg.includes('exercise guide'):
-				sendTextMessage(senderID,'feature coming soon!')
+				var muscles = Object.keys(exercises_data['data'])	
+				sendMuscleGroups(senderID,muscles)
 				break;
 			default:
 				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
@@ -190,6 +192,16 @@ function sendTextMessage(recipientId, messageText, quickReply) {
 	callSendAPI(messageData);
 }
 
+// send muscle groups
+function sendMuscleGroups(recipientId,muscles){
+	var buttonsArray=[];
+	for(var i=0;i<muscles.length;i++){
+		var title = capitalizeFirstLetter(muscles[i])
+		buttonsArray.push({type:"postback",title:title,payload:muscles[i]})
+	}
+	sendButtonMessage(recipientId,"Choose a Muscle to view its exercises",buttonsArray)
+}
+
 // Send Message to Facebook
 function callSendAPI(messageData) {
 	request({
@@ -228,6 +240,11 @@ function userProfileAPI(user_page_id){
 			console.error(error);
 		}
 	});
+}
+
+// capitalize string
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 // run app
