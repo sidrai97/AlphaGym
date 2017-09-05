@@ -97,6 +97,7 @@ function receivedPostback(event) {
 	}
 	else if(payload.includes("paging")){
 		var muscle=payload.substring(0,payload.indexOf(":"));
+		console.log("got error:",muscle);
 		var muscle_exercises = exercises_data['data'][muscle];
 		var paging=payload.substring(payload.lastIndexOf(":"));
 		var quickReply=[];
