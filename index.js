@@ -196,18 +196,14 @@ function sendTextMessage(recipientId, messageText, quickReply) {
 
 // send muscle groups
 function sendMuscleGroups(recipientID,muscles){
-	var buttonsArray=[];
-	var buttonsArray2=[];
-	for(var i=0;i<muscles.length-7;i++){
-		var title = capitalizeFirstLetter(muscles[i])
-		buttonsArray.push({type:"postback",title:title,payload:muscles[i]})
+	for(var i=0;i<muscles.length;i=i+3){
+		var buttonsArray=[];
+		for(var j=i;j<i+3;j++){
+			var title = capitalizeFirstLetter(muscles[j])
+			buttonsArray.push({type:"postback",title:title,payload:muscles[j]})
+		}
+		sendButtonMessage(recipientID,"Choose a Muscle to view its exercises",buttonsArray)
 	}
-	for(var i=muscles.length-7;i<muscles.length;i++){
-		var title = capitalizeFirstLetter(muscles[i])
-		buttonsArray2.push({type:"postback",title:title,payload:muscles[i]})
-	}
-	sendButtonMessage(recipientID,"Choose a Muscle to view its exercises",buttonsArray)
-	//sendButtonMessage(recipientID,"",buttonsArray2)
 }
 
 // Send Message to Facebook
