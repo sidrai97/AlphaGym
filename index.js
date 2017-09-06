@@ -99,7 +99,7 @@ function receivedPostback(event) {
 		var muscle=payload.substring(0,payload.indexOf(":"));
 		console.log("got error:",muscle);
 		var muscle_exercises = exercises_data['data'][muscle];
-		var paging=payload.substring(payload.lastIndexOf(":"));
+		var paging=payload.substring(payload.lastIndexOf(":")+1);
 		var quickReply=[];
 		var range = (muscle_exercises.length-paging>10)?10:muscle_exercises.length-paging;
 		var messageText = capitalizeFirstLetter(muscle)+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
