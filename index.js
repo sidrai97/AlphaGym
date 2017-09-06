@@ -89,11 +89,12 @@ function receivedPostback(event) {
 		var buttonsArray;
 		if(range == muscle_exercises.length){
 			buttonsArray=[];
+			sendTextMessage(senderID, messageText,quickReply);
 		}
 		else{
 			buttonsArray=[{type:"postback",title:"Load More...",payload:payload+":paging:10"}];
+			sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
 		}
-		sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
 	}
 	else if(payload.includes("paging")){
 		var muscle=payload.substring(0,payload.indexOf(":"));
@@ -113,11 +114,12 @@ function receivedPostback(event) {
 		var buttonsArray;
 		if(paging+range === muscle_exercises.length){
 			buttonsArray=[];
+			sendTextMessage(senderID, messageText, quickReply);
 		}
 		else{
 			buttonsArray=[{type:"postback",title:"Load More...",payload:muscle+":paging:"+(paging+range)}];
+			sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
 		}
-		sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
 	}
 	else{
 		sendTextMessage(senderID,payload);
