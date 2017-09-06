@@ -162,6 +162,7 @@ function receivedMessage(event) {
 				sendMuscleGroups(senderID,muscles)
 				break;
 			default:
+				console.log(messageText);
 				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
 				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
 	  	}
