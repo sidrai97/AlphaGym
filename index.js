@@ -102,8 +102,6 @@ function receivedPostback(event) {
 		var paging=parseInt(payload.substring(payload.lastIndexOf(":")+1));
 		var quickReply=[];
 		var range = ((muscle_exercises.length-paging)>10)?10:(muscle_exercises.length-paging);
-		console.log("got error:",muscle, paging, range);
-		console.log(exercises_data['data'][muscle][10])
 		
 		var messageText = capitalizeFirstLetter(muscle)+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
 		for(var i=paging; i<(paging+range); i++){
