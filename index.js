@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const exercises_data = require('./scrapper/exercises_data.json')
+const isNumeric = require("isnumeric")
 
 const app = express()
 const token = process.env.FB_VERIFY_TOKEN
@@ -103,7 +104,7 @@ function receivedPostback(event) {
 		var quickReply=[];
 		var range = ((muscle_exercises.length-paging)>10)?10:(muscle_exercises.length-paging);
 		
-		var messageText = capitalizeFirstLetter(muscle)+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
+		var messageText = capitalizeFirstLetter(muscle)+"Exercises\n\nSelect code for the exercise you want to know more about\n\n";
 		for(var i=paging; i<(paging+range); i++){
 			var temp = (i+1).toString()+". "+muscle_exercises[i]["name"]+"\n\n";
 			messageText += temp;
@@ -160,6 +161,14 @@ function receivedMessage(event) {
 			case msg.includes('exercise guide'):
 				var muscles = Object.keys(exercises_data['data'])	
 				sendMuscleGroups(senderID,muscles)
+				break;
+			case isNumeric(msg):
+				if("quick_reply" in message){
+					var payload=message["quick_reply"]["payload"]
+					var muscle=payload.substring(0,payload.indexOf(":"));
+					var pos=parseInt(payload.substring(payload.lastIndexOf(":")+1));
+					sendExerciseDetails(senderID,muscle,pos);
+				}
 				break;
 			default:
 				console.log(messageText);
@@ -274,6 +283,12 @@ function sendMuscleGroups(recipientID,muscles){
 		}
 		sendButtonMessage(recipientID,"Select Target Muscle",buttonsArray)
 	}
+}
+
+// send Exercise Details
+function sendExerciseDetails(recipientID,muscle,pos){
+	var exercise = exercises_data["data"][muscle][pos];
+	console.log(exercise);
 }
 
 // Send Message to Facebook
