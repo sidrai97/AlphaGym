@@ -288,7 +288,16 @@ function sendMuscleGroups(recipientID,muscles){
 // send Exercise Details
 function sendExerciseDetails(recipientID,muscle,pos){
 	var exercise = exercises_data["data"][muscle][pos];
-	console.log(exercise);
+	var messageText = exercise["name"]+"\n\nMuscle: "+exercise["muscle"]
+	+"\n\nLevel: "+exercise["level"]+"\n\nEquipment: "+exercise["equipment"]+"\n\nSteps: ";
+
+	for(var i=0; i<exercise["guide"].length; i++){
+		if(exercise["guide"][i].length > 0){
+			messageText += "\n"+(i+1).toString()+". "+exercise["guide"][i];
+		}
+	}
+
+	sendTextMessage(recipientID,messageText);
 }
 
 // Send Message to Facebook
