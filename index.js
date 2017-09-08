@@ -181,8 +181,33 @@ function receivedMessage(event) {
 	}
 }
 
-function sendGenericMessage(recipientId, messageText) {
-	// To be expanded in later sections
+function sendGenericMessage(recipientID, title, left_url, right_url) {
+	var messageData = {
+		recipient: {
+			id: recipientID
+		},
+		messageText={
+			attachment:{
+				type:"template",
+				payload:{
+					template_type:"generic",
+					elements:[
+						{
+							title:title,
+							subtitle:"Start Position",
+							image_url:left_url,      
+						},
+						{
+							title:title,
+							subtitle:"End Position",
+							image_url:right_url,
+						}
+					]
+				}
+			}
+		}
+	};
+	callSendAPI(messageData);
 }
 
 // For default and help message
@@ -288,8 +313,8 @@ function sendMuscleGroups(recipientID,muscles){
 // send Exercise Details
 function sendExerciseDetails(recipientID,muscle,pos){
 	var exercise = exercises_data["data"][muscle][pos];
-	var messageText = exercise["name"]+"\n\nMuscle: "+exercise["muscle"]
-	+"\n\nLevel: "+exercise["level"]+"\n\nEquipment: "+exercise["equipment"]+"\n\nSteps: ";
+	var messageText = "Exercise: 	"+exercise["name"]+"\n\nMuscle: "+exercise["muscle"]
+	+"\n\nLevel: "+exercise["level"]+"\n\nEquipment: "+exercise["equipment"]+"\n\nGuide: ";
 
 	for(var i=0; i<exercise["guide"].length; i++){
 		if(exercise["guide"][i].length > 0){
@@ -297,7 +322,12 @@ function sendExerciseDetails(recipientID,muscle,pos){
 		}
 	}
 
+	var name=exercise["name"];
+	var left_url=exercise["left_img_url"];
+	var right_url=exercise["right_img_url"];
 	sendTextMessage(recipientID,messageText);
+	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},1000);
+	
 }
 
 // Send Message to Facebook
