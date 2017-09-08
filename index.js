@@ -319,17 +319,6 @@ function sendExerciseDetails(recipientID,muscle,pos){
 	var name=exercise["name"];
 	var left_url=exercise["left_img_url"];
 	var right_url=exercise["right_img_url"];
-	sendTextMessage(recipientID,messageText);
-	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},200);
-	
-	setTimeout(function(){sendTextMessage(recipientID,"Guide:");},1000);
-	for(var i=0; i<exercise["guide"].length-1; i++){
-		if(exercise["guide"][i].length > 0){
-			var temp=(i+1).toString()+". "+exercise["guide"][i];
-			setTimeout(function(){sendTextMessage(recipientID,temp);},1000);
-		}
-	}
-	var temp2=(i+1).toString()+". "+exercise["guide"][exercise["guide"].length];
 	var video=exercise["video_url"];
 	var buttonsArray=[{
     	type:"web_url",
@@ -337,7 +326,20 @@ function sendExerciseDetails(recipientID,muscle,pos){
         title:"View Item",
 		webview_height_ratio: "full"
     }];
+	sendButtonMessage(recipientID,messageText,buttonsArray);
+	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},200);
+	/*
+	setTimeout(function(){sendTextMessage(recipientID,"Guide:");},1000);
+	for(var i=0; i<exercise["guide"].length-1; i++){
+		if(exercise["guide"][i].length > 0){
+			var temp=(i+1).toString()+". "+exercise["guide"][i];
+			setTimeout(function(){sendTextMessage(recipientID,temp);},1000);
+		}
+	}
+	var temp2=(exercise["guide"].length).toString()+". "+exercise["guide"][exercise["guide"].length];
+	
 	setTimeout(function(){sendButtonMessage(recipientID,temp2,buttonsArray);},1000);
+	*/
 }
 
 // Send Message to Facebook
