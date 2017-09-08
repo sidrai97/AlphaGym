@@ -320,7 +320,7 @@ function sendExerciseDetails(recipientID,muscle,pos){
 	var left_url=exercise["left_img_url"];
 	var right_url=exercise["right_img_url"];
 	sendTextMessage(recipientID,messageText);
-	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},1000);
+	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},500);
 	
 	messageText="\n\nGuide: ";
 	for(var i=0; i<exercise["guide"].length; i++){
@@ -328,8 +328,8 @@ function sendExerciseDetails(recipientID,muscle,pos){
 			messageText += "\n"+(i+1).toString()+". "+exercise["guide"][i];
 		}
 	}
-	setTimeout(function(){sendTextMessage(recipientID,messageText);},1000);
-	
+	var video=exercise["video_url"];
+	setTimeout(function(){sendTextMessage(recipientID,messageText);},2000);	
 }
 
 // Send Message to Facebook
