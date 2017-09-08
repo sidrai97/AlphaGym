@@ -314,19 +314,21 @@ function sendMuscleGroups(recipientID,muscles){
 function sendExerciseDetails(recipientID,muscle,pos){
 	var exercise = exercises_data["data"][muscle][pos];
 	var messageText = "Exercise: 	"+exercise["name"]+"\n\nMuscle: "+exercise["muscle"]
-	+"\n\nLevel: "+exercise["level"]+"\n\nEquipment: "+exercise["equipment"]+"\n\nGuide: ";
-
-	for(var i=0; i<exercise["guide"].length; i++){
-		if(exercise["guide"][i].length > 0){
-			messageText += "\n"+(i+1).toString()+". "+exercise["guide"][i];
-		}
-	}
+	+"\n\nLevel: "+exercise["level"]+"\n\nEquipment: "+exercise["equipment"];
 
 	var name=exercise["name"];
 	var left_url=exercise["left_img_url"];
 	var right_url=exercise["right_img_url"];
 	sendTextMessage(recipientID,messageText);
 	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},1000);
+	
+	messageText="\n\nGuide: ";
+	for(var i=0; i<exercise["guide"].length; i++){
+		if(exercise["guide"][i].length > 0){
+			messageText += "\n"+(i+1).toString()+". "+exercise["guide"][i];
+		}
+	}
+	setTimeout(function(){sendTextMessage(recipientID,messageText);},1000);
 	
 }
 
