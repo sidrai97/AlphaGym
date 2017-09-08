@@ -327,7 +327,7 @@ function sendExerciseDetails(recipientID,muscle,pos){
 		webview_height_ratio: "full"
     }];
 	sendButtonMessage(recipientID,messageText,buttonsArray);
-	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},7100);
+	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},700);
 	/*
 	setTimeout(function(){sendTextMessage(recipientID,"Guide:");},1000);
 	for(var i=0; i<exercise["guide"].length-1; i++){
