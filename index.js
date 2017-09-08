@@ -186,7 +186,7 @@ function sendGenericMessage(recipientID, title, left_url, right_url) {
 		recipient: {
 			id: recipientID
 		},
-		messageText={
+		message:{
 			attachment:{
 				type:"template",
 				payload:{
