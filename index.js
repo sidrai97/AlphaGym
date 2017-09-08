@@ -323,11 +323,11 @@ function sendExerciseDetails(recipientID,muscle,pos){
 	var buttonsArray=[{
     	type:"web_url",
         url:video,
-        title:"View Item",
+        title:"View Exercise Video",
 		webview_height_ratio: "full"
     }];
 	sendButtonMessage(recipientID,messageText,buttonsArray);
-	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},200);
+	setTimeout(function(){sendGenericMessage(recipientID,name,left_url,right_url);},7100);
 	/*
 	setTimeout(function(){sendTextMessage(recipientID,"Guide:");},1000);
 	for(var i=0; i<exercise["guide"].length-1; i++){
