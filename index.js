@@ -329,7 +329,13 @@ function sendExerciseDetails(recipientID,muscle,pos){
 		}
 	}
 	var video=exercise["video_url"];
-	setTimeout(function(){sendTextMessage(recipientID,messageText);},2000);	
+	var buttonsArray=[{
+    	type:"web_url",
+        url:video,
+        title:"View Item",
+		webview_height_ratio: "full"
+      }];
+	setTimeout(function(){sendButtonMessage(recipientID,messageText,buttonsArray);},2000);	
 }
 
 // Send Message to Facebook
