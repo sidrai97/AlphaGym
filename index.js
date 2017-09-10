@@ -199,7 +199,7 @@ function sendGenericMessage(recipientID, title, left_url, right_url) {
 							default_action:{
 								type:"web_url",
 								url:left_url,
-								webview_height_ratio:tall
+								webview_height_ratio:"tall"
 							} 
 						},
 						{
@@ -209,7 +209,7 @@ function sendGenericMessage(recipientID, title, left_url, right_url) {
 							default_action:{
 								type:"web_url",
 								url:right_url,
-								webview_height_ratio:tall
+								webview_height_ratio:"tall"
 							}
 						}
 					]
