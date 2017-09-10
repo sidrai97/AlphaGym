@@ -195,12 +195,22 @@ function sendGenericMessage(recipientID, title, left_url, right_url) {
 						{
 							title:title,
 							subtitle:"Start Position",
-							image_url:left_url,      
+							image_url:left_url,     
+							default_action:{
+								type:"web_url",
+								url:left_url,
+								webview_height_ratio:tall
+							} 
 						},
 						{
 							title:title,
 							subtitle:"End Position",
 							image_url:right_url,
+							default_action:{
+								type:"web_url",
+								url:right_url,
+								webview_height_ratio:tall
+							}
 						}
 					]
 				}
