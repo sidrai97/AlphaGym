@@ -334,7 +334,7 @@ function sendMuscleGroups(recipientID,muscles){
 		for(var j=i;j<i+3;j++){
 			var title = capitalizeFirstLetter(muscles[j])
 			var subtitle = (exercises_data["data"][muscles[j]].length).toString()+" exercises in database"
-			elementsArray.push({title:title,subtitle:subtitle,default_action:{type:"postback",title:title,payload:muscles[j]}})
+			elementsArray.push({title:title,subtitle:subtitle,buttons:[{type:"postback",title:"View",payload:muscles[j]}]})
 			//elementsArray.push({type:"postback",title:title,payload:muscles[j]})
 		}
 		sendListMessage(recipientID,elementsArray)
