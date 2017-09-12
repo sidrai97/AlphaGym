@@ -308,7 +308,7 @@ function sendTextMessage(recipientId, messageText, quickReply) {
 	callSendAPI(messageData);
 }
 
-function sendListMessage(recipientID,elementsArray){
+function sendListMessage(recipientId,elementsArray){
 	var messageData={
 		recipient: {
 			id: recipientId
