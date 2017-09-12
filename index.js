@@ -158,7 +158,7 @@ function receivedMessage(event) {
 			case msg.includes('schedule'):
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
-			case msg.includes('exercise guide'):
+			case msg.includes('exercise guide') || msg.includes('guide'):
 				var muscles = Object.keys(exercises_data['data'])	
 				sendMuscleGroups(senderID,muscles)
 				break;
@@ -308,15 +308,35 @@ function sendTextMessage(recipientId, messageText, quickReply) {
 	callSendAPI(messageData);
 }
 
+function sendListMessage(recipientID,elementsArray){
+	var messageData={
+		recipient: {
+			id: recipientId
+		},
+		message: {
+			attachment: {
+				type: "template",
+				payload: {
+				  template_type: "list",
+				  top_element_style: "compact",
+				  elements: elementsArray				     
+				}
+			}
+		}
+	};
+	callSendAPI(messageData);
+}
+
 // send muscle groups
 function sendMuscleGroups(recipientID,muscles){
 	for(var i=0;i<muscles.length;i=i+3){
-		var buttonsArray=[];
+		var elementsArray=[];
 		for(var j=i;j<i+3;j++){
 			var title = capitalizeFirstLetter(muscles[j])
-			buttonsArray.push({type:"postback",title:title,payload:muscles[j]})
+			elementsArray.push({title:title,default_action:{type:"postback",title:title,payload:muscles[j]}})
+			//elementsArray.push({type:"postback",title:title,payload:muscles[j]})
 		}
-		sendButtonMessage(recipientID,"Select Target Muscle",buttonsArray)
+		sendListMessage(recipientID,elementsArray)
 	}
 }
 
