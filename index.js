@@ -173,11 +173,11 @@ function receivedMessage(event) {
 			default:
 				console.log(messageText);
 				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
-				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
+				//setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
 	  	}
 	} 
 	else if (messageAttachments) {
-		sendTextMessage(senderID, "Message with attachment received");
+		//sendTextMessage(senderID, "Message with attachment received");
 	}
 }
 
