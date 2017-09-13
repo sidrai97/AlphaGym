@@ -77,50 +77,49 @@ function receivedPostback(event) {
 
 	if(muscles.includes(payload)){
 		var muscle_exercises = exercises_data['data'][payload];
-		var range=(muscle_exercises.length>10)?10:muscle_exercises.length;
-		var quickReply=[];
-		var messageText = capitalizeFirstLetter(payload)+"Exercises\n\nEnter code for the exercise you want to know more about\n\n";
+		var range=(muscle_exercises.length>4)?4:muscle_exercises.length;
+		var elementsArray=[];
 		for(var i=0; i<range; i++){
-			var temp = (i+1).toString()+". "+muscle_exercises[i]["name"]+"\n\n";
-			messageText += temp;
-			quickReply.push({
-				"content_type":"text","title":(i+1).toString(),"payload":payload+":pos:"+i.toString()
-			})
+			var title = (i+1).toString()+". "+muscle_exercises[i]["name"];
+			var buttons=[{type:"postback",title:"View",payload:payload+":pos:"+i.toString()}];
+			elementsArray.push({title:title,buttons:buttons})
 		}
 		var buttonsArray;
 		if(range == muscle_exercises.length){
 			buttonsArray=[];
-			sendTextMessage(senderID, messageText,quickReply);
+			sendListMessage(senderID, elementsArray);
 		}
 		else{
-			buttonsArray=[{type:"postback",title:"Load More...",payload:payload+":paging:10"}];
-			sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
+			buttonsArray=[{type:"postback",title:"Load More...",payload:payload+":paging:4"}];
+			sendListMessage(senderID, elementsArray, buttonsArray);
 		}
 	}
 	else if(payload.includes("paging")){
 		var muscle=payload.substring(0,payload.indexOf(":"));
 		var muscle_exercises = exercises_data['data'][muscle];
 		var paging=parseInt(payload.substring(payload.lastIndexOf(":")+1));
-		var quickReply=[];
-		var range = ((muscle_exercises.length-paging)>10)?10:(muscle_exercises.length-paging);
+		var range = ((muscle_exercises.length-paging)>4)?4:(muscle_exercises.length-paging);
 		
-		var messageText = capitalizeFirstLetter(muscle)+"Exercises\n\nSelect code for the exercise you want to know more about\n\n";
+		var elementsArray=[];
 		for(var i=paging; i<(paging+range); i++){
-			var temp = (i+1).toString()+". "+muscle_exercises[i]["name"]+"\n\n";
-			messageText += temp;
-			quickReply.push({
-				"content_type":"text","title":(i+1).toString(),"payload":muscle+":pos:"+i.toString()
-			})
+			var title = (i+1).toString()+". "+muscle_exercises[i]["name"];
+			var buttons=[{type:"postback",title:"View",payload:muscle+":pos:"+i.toString()}];
+			elementsArray.push({title:title,buttons:buttons})
 		}
 		var buttonsArray;
 		if(paging+range === muscle_exercises.length){
 			buttonsArray=[];
-			sendTextMessage(senderID, messageText, quickReply);
+			sendListMessage(senderID, elementsArray);
 		}
 		else{
 			buttonsArray=[{type:"postback",title:"Load More...",payload:muscle+":paging:"+(paging+range)}];
-			sendButtonMessage(senderID, messageText,buttonsArray, quickReply);
+			sendListMessage(senderID, elementsArray, buttonsArray);
 		}
+	}
+	else if(payload.includes("pos")){
+		var muscle=payload.substring(0,payload.indexOf(":"));
+		var pos=parseInt(payload.substring(payload.lastIndexOf(":")+1));
+		sendExerciseDetails(senderID,muscle,pos);
 	}
 	else{
 		sendTextMessage(senderID,payload);
@@ -161,14 +160,6 @@ function receivedMessage(event) {
 			case msg.includes('exercise guide') || msg.includes('guide'):
 				var muscles = Object.keys(exercises_data['data'])	
 				sendMuscleGroups(senderID,muscles)
-				break;
-			case isNumeric(msg):
-				if("quick_reply" in message){
-					var payload=message["quick_reply"]["payload"]
-					var muscle=payload.substring(0,payload.indexOf(":"));
-					var pos=parseInt(payload.substring(payload.lastIndexOf(":")+1));
-					sendExerciseDetails(senderID,muscle,pos);
-				}
 				break;
 			default:
 				console.log(messageText);
@@ -308,7 +299,7 @@ function sendTextMessage(recipientId, messageText, quickReply) {
 	callSendAPI(messageData);
 }
 
-function sendListMessage(recipientId,elementsArray){
+function sendListMessage(recipientId,elementsArray,buttonsArray){
 	var messageData={
 		recipient: {
 			id: recipientId
@@ -324,6 +315,9 @@ function sendListMessage(recipientId,elementsArray){
 			}
 		}
 	};
+	if(buttonsArray !== undefined){
+		messageData.message.attachment.payload.buttons=buttonsArray;
+	}
 	callSendAPI(messageData);
 }
 
