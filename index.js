@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const exercises_data = require('./scrapper/exercises_data.json')
 const isNumeric = require("isnumeric")
+const sqlite3 = require('sqlite3').verbose();
 
 const app = express()
 const token = process.env.FB_VERIFY_TOKEN
@@ -154,7 +155,7 @@ function receivedMessage(event) {
 			case msg.includes('stats'):
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
-			case msg.includes('schedule'):
+			case msg.includes('schedule') || msg.includes('track workout'):
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
 			case msg.includes('exercise guide') || msg.includes('guide'):
@@ -219,14 +220,14 @@ function sendDefaultTextMessage(recipientId)
 			"content_type":"text","title":"exercise guide","payload":"exercise guide"
 		},
 		{
-			"content_type":"text","title":"schedule","payload":"schedule"
+			"content_type":"text","title":"track workout","payload":"track workout"
 		},
 		{
 			"content_type":"text","title":"stats","payload":"stats"
 		}
 	];
 	sendTextMessage(recipientId,"Say 'exercise guide' to learn weight training execises.",quickReply);
-	sendTextMessage(recipientId,"Say 'schedule' to know how you can track your workout.",quickReply);
+	sendTextMessage(recipientId,"Say 'track workout' to know how you can track your workout schedule.",quickReply);
 	sendTextMessage(recipientId,"You can see your workout statistics with the 'stats' command.",quickReply);
 	sendTextMessage(recipientId,"Say 'help' for this help reminder.", quickReply);
 }
