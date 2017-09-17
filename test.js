@@ -1,7 +1,7 @@
 'use strict'
 
 const sqlite3 = require('sqlite3').verbose();
-
+var temp="aaa"
 //database connection
 var db = new sqlite3.Database('userData.db',function(err){
     if(err){
@@ -11,9 +11,10 @@ var db = new sqlite3.Database('userData.db',function(err){
 });
 
 db.serialize(function(){
-    
-    var stmt = db.prepare("INSERT INTO user VALUES (?,?)");
-    stmt.run();
+    console.log('a');
+    //var stmt = db.prepare("INSERT INTO user VALUES (?,?)");
+    //stmt.run();
+    console.log(temp)
 });
 
 //closing database connection

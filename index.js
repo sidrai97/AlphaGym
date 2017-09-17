@@ -167,6 +167,21 @@ function receivedMessage(event) {
 				var muscles = Object.keys(exercises_data['data'])	
 				sendMuscleGroups(senderID,muscles)
 				break;
+			case (msg.split('/').length-1)==2:
+				var msgData=msg.split('/')
+				var exerciseName=msgData[0];
+				var sets=msgData[1];
+				var reps=msgData[2];
+				trackWorkout(senderID,exerciseName,sets,reps);
+				break;
+			case (msg.split('/').length-1)==3:
+				var msgData=msg.split('/')
+				var exerciseName=msgData[0];
+				var weights=msgData[1];
+				var sets=msgData[2];
+				var reps=msgData[3];
+				trackWorkout(senderID,exerciseName,sets,reps,weights);
+				break;
 			default:
 				console.log(messageText);
 				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
@@ -371,6 +386,33 @@ function sendExerciseDetails(recipientID,muscle,pos){
 	
 	setTimeout(function(){sendButtonMessage(recipientID,temp2,buttonsArray);},1000);
 	*/
+}
+
+//track exercise details
+function trackWorkout(recipientId,exerciseName,sets,reps,weights){
+	var db = new sqlite3.Database('userData.db',function(err){
+		if(err){
+			return console.log('Error connecting to database :',err);
+		}
+		console.log('Database connected');
+	});
+	var date=new Date();
+	date=date.toLocaleString();
+	var stmt = db.prepare("INSERT INTO userWorkout VALUES (?,?,?,?,?,?,?)");
+	if(weights==undefined){
+		stmt.run(recipientId,date,exerciseName,"no","0",sets,reps);
+	}
+	else{
+		stmt.run(recipientId,date,exerciseName,"yes",weights,sets,reps);
+	}
+	//closing database connection
+	db.close(function(err){
+		if(err){
+			return console.log('Error closing database : ',err);
+		}
+		console.log('Closing database connection');
+	});
+	sendTextMessage("Stored successfully!");
 }
 
 // Send Message to Facebook
