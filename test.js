@@ -13,7 +13,7 @@ var db = new sqlite3.Database('userData.db',function(err){
 db.serialize(function(){
     
     var stmt = db.prepare("INSERT INTO user VALUES (?,?)");
-    db.run();
+    stmt.run();
 });
 
 //closing database connection

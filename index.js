@@ -156,7 +156,10 @@ function receivedMessage(event) {
 				sendTextMessage(senderID,'feature coming soon!')
 				break;
 			case msg.includes('schedule') || msg.includes('track workout'):
-				sendTextMessage(senderID,'feature coming soon!')
+				var msg="Send workout details in one of the following format\n \
+				1.For Weighted exercises:\nexercise_name/weights(in lbs)/sets/reps\n \
+				2.For Bodyweight exercises:\nexercise_name/sets/reps";
+				sendTextMessage(senderID,msg)
 				break;
 			case msg.includes('exercise guide') || msg.includes('guide'):
 				var muscles = Object.keys(exercises_data['data'])	
