@@ -1,5 +1,5 @@
 'use strict'
-
+console.log(Math.floor(Math.random() * 4))
 const sqlite3 = require('sqlite3').verbose();
 var temp="aaa"
 //database connection

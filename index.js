@@ -416,7 +416,8 @@ function trackWorkout(recipientId,exerciseName,sets,reps,weights){
 		}
 		console.log('Closing database connection');
 	});
-	sendTextMessage(recipientId,"Stored successfully!");
+	var coolMsgs=["No Pain,No Gain!","Alright! keep going","Cool! what's next?","Good Job!"]
+	sendTextMessage(recipientId,coolMsgs[Math.floor(Math.random() * coolMsgs.length)]);
 }
 //
 function testDB(recipientId){
