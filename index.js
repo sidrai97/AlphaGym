@@ -182,6 +182,9 @@ function receivedMessage(event) {
 				var reps=msgData[3];
 				trackWorkout(senderID,exerciseName,sets,reps,weights);
 				break;
+			case msg.includes('testdb'):
+				testDB(senderID);
+				break;
 			default:
 				console.log(messageText);
 				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
@@ -414,6 +417,27 @@ function trackWorkout(recipientId,exerciseName,sets,reps,weights){
 		console.log('Closing database connection');
 	});
 	sendTextMessage(recipientId,"Stored successfully!");
+}
+//
+function testDB(recipientId){
+	var db = new sqlite3.Database('userData.db',function(err){
+		if(err){
+			return console.log('Error connecting to database :',err);
+		}
+		console.log('Database connected');
+	});
+	
+	db.each("SELECT * FROM userWorkout where userId="+recipientId, function(err, row) {
+		console.log(row.exerciseName);
+	});
+
+	//closing database connection
+	db.close(function(err){
+		if(err){
+			return console.log('Error closing database : ',err);
+		}
+		console.log('Closing database connection');
+	});
 }
 
 // Send Message to Facebook
