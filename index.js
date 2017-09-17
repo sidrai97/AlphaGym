@@ -157,8 +157,8 @@ function receivedMessage(event) {
 				break;
 			case msg.includes('schedule') || msg.includes('track workout'):
 				var msg="Send workout details in one of the following format";
-				var msg1="1. For Weighted exercises:\nexercise_name/weights(in lbs)/sets/reps";
-				var msg2="2. For Bodyweight exercises:\nexercise_name/sets/reps";
+				var msg1="For Weighted exercises:\nexercise_name/weights(in lbs)/sets/reps";
+				var msg2="For Bodyweight exercises:\nexercise_name/sets/reps";
 				sendTextMessage(senderID,msg)				
 				setTimeout(function(){sendTextMessage(senderID,msg1);},1000);
 				setTimeout(function(){sendTextMessage(senderID,msg2);},1000);
@@ -412,7 +412,7 @@ function trackWorkout(recipientId,exerciseName,sets,reps,weights){
 		}
 		console.log('Closing database connection');
 	});
-	sendTextMessage("Stored successfully!");
+	sendTextMessage(recipientId,"Stored successfully!");
 }
 
 // Send Message to Facebook
