@@ -406,6 +406,7 @@ function trackWorkout(recipientId,exerciseName,sets,reps,weights){
 		stmt.run(recipientId,date,exerciseName,"yes",weights,sets,reps);
 	}
 	//closing database connection
+	setTimeout(function(){},1000);
 	db.close(function(err){
 		if(err){
 			return console.log('Error closing database : ',err);
