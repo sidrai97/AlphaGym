@@ -12,7 +12,7 @@ const token = process.env.FB_VERIFY_TOKEN
 const access = process.env.FB_ACCESS_TOKEN
 
 app.set('port', (process.env.PORT || 5000))
-
+app.set('view engine', 'pug')
 // Allows us to process the data
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
