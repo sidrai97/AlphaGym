@@ -153,7 +153,7 @@ function receivedMessage(event) {
 				sendDefaultTextMessage(senderID);
 				break;
 			case msg.includes('stats'):
-				sendTextMessage(senderID,'feature coming soon!')
+				sendStatsMessage(senderID);
 				break;
 			case msg.includes('schedule') || msg.includes('track workout'):
 				var msg="Send workout details in one of the following format";
