@@ -196,6 +196,71 @@ function receivedMessage(event) {
 	}
 }
 
+//handle stats get request
+app.get('/', function(req, res) {
+    var userid=req.query.userid
+    var username;
+    var message=[]
+    var db = new sqlite3.Database('userData.db',function(err){
+		if(err){
+			return console.log('Error connecting to database :',err);
+		}
+		console.log('Database connected');
+	});
+	
+	db.each("select * from userWorkout where userId="+userid+" order by rowid desc", function(err, row) {
+        var temp={
+            "date":row.dateTime,
+            "exerciseName":row.exerciseName,
+            "weighted":row.weighted,
+            "weight":row.weight,
+            "sets":row.sets,
+            "reps":row.reps
+        }
+        message.push(temp)
+        username=row.userName
+	});
+
+	//closing database connection
+	db.close(function(err){
+		if(err){
+			return console.log('Error closing database : ',err);
+		}
+        console.log('Closing database connection');
+        res.render('stats',{userid:userid,username:username,message:message})
+    });
+})
+
+//send generic stats msg
+function sendStatsMessage(recipientId){
+	var messageData = {
+		recipient: {
+			id: recipientId
+		},
+		message:{
+			attachment:{
+				type:"template",
+				payload:{
+					template_type:"generic",
+					elements:[
+						{
+							title:"Your workout Statistics",
+							image_url:"https://static-s.aa-cdn.net/img/ios/536049508/c9ea5d4ddbf05639d46e31d729cbfbba",     
+							buttons:[{
+								type:"web_url",
+								url:"https://sleepy-bayou-84695.herokuapp.com/stats?userid="+recipientId,
+								title:"View stats",
+								webview_height_ratio:"tall"
+							}] 
+						}
+					]
+				}
+			}
+		}
+	};
+	callSendAPI(messageData);
+}
+
 function sendGenericMessage(recipientID, title, left_url, right_url) {
 	var messageData = {
 		recipient: {
