@@ -197,7 +197,7 @@ function receivedMessage(event) {
 }
 
 //handle stats get request
-app.get('/', function(req, res) {
+app.get('/stats', function(req, res) {
     var userid=req.query.userid
     var username;
     var message=[]
@@ -244,12 +244,13 @@ function sendStatsMessage(recipientId){
 					template_type:"generic",
 					elements:[
 						{
-							title:"Your workout Statistics",
+							title:"Nice Training!",
+							subtitle:"Click on the button to get to your personal statistics page.",
 							image_url:"https://static-s.aa-cdn.net/img/ios/536049508/c9ea5d4ddbf05639d46e31d729cbfbba",     
 							buttons:[{
 								type:"web_url",
 								url:"https://sleepy-bayou-84695.herokuapp.com/stats?userid="+recipientId,
-								title:"View stats",
+								title:"View statistics",
 								webview_height_ratio:"tall"
 							}] 
 						}
