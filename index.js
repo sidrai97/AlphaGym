@@ -199,7 +199,6 @@ function receivedMessage(event) {
 //handle stats get request
 app.get('/stats', function(req, res) {
     var userid=req.query.userid
-    var username;
     var message=[]
     var db = new sqlite3.Database('userData.db',function(err){
 		if(err){
@@ -218,7 +217,6 @@ app.get('/stats', function(req, res) {
             "reps":row.reps
         }
         message.push(temp)
-        username=row.userName
 	});
 
 	//closing database connection
@@ -227,7 +225,7 @@ app.get('/stats', function(req, res) {
 			return console.log('Error closing database : ',err);
 		}
         console.log('Closing database connection');
-        res.render('stats',{userid:userid,username:username,message:message})
+        res.render('stats',{userid:userid,message:message})
     });
 })
 
@@ -251,7 +249,7 @@ function sendStatsMessage(recipientId){
 								type:"web_url",
 								url:"https://sleepy-bayou-84695.herokuapp.com/stats?userid="+recipientId,
 								title:"View statistics",
-								webview_height_ratio:"tall"
+								webview_height_ratio:"full"
 							}] 
 						}
 					]
