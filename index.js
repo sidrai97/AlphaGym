@@ -200,7 +200,7 @@ function receivedMessage(event) {
 app.get('/stats', function(req, res) {
     var userid=req.query.userid
     var message=[]
-    var db = new sqlite3.Database('userData.db',function(err){
+    var db = new sqlite3.Database('https://easycode2018.000webhostapp.com/userData.db',function(err){
 		if(err){
 			return console.log('Error connecting to database :',err);
 		}
@@ -457,7 +457,7 @@ function sendExerciseDetails(recipientID,muscle,pos){
 
 //track exercise details
 function trackWorkout(recipientId,exerciseName,sets,reps,weights){
-	var db = new sqlite3.Database('userData.db',function(err){
+	var db = new sqlite3.Database('https://easycode2018.000webhostapp.com/userData.db',function(err){
 		if(err){
 			return console.log('Error connecting to database :',err);
 		}
@@ -485,7 +485,7 @@ function trackWorkout(recipientId,exerciseName,sets,reps,weights){
 }
 //
 function testDB(recipientId){
-	var db = new sqlite3.Database('userData.db',function(err){
+	var db = new sqlite3.Database('https://easycode2018.000webhostapp.com/userData.db',function(err){
 		if(err){
 			return console.log('Error connecting to database :',err);
 		}
