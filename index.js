@@ -194,7 +194,7 @@ function receivedMessage(event) {
 }
 
 //handle stats get request
-app.get('/stats', function(req, res) {
+app.get('/stats', function(req, resp) {
     var userid=req.query.userid
     var message=[]
 	const client = new Client({
@@ -216,7 +216,7 @@ app.get('/stats', function(req, res) {
 			message.push(temp)
 		}
 		client.end();
-        res.render('stats',{userid:userid,message:message})
+		resp.render('stats',{userid:userid,message:message})
 	});
 })
 
