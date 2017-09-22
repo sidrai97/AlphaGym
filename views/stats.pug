@@ -4,28 +4,34 @@ html
         link(rel="stylesheet", href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css")
         script(src="https://code.jquery.com/jquery-1.12.4.js")
         script(src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
         script(type='text/javascript').
             console.log('yoo')
             $(document).ready(function() {
                 $('#statsTable').DataTable();
             } );
-    body
-        h3= "User Id: "+userid
-        table(id="statsTable")
-            thead
-                tr
-                    th Date
-                    th Exercise Name
-                    th Weighted
-                    th Weight(in lbs)
-                    th Sets
-                    th Reps
-            tbody
-                each val in message
+    body        
+        div(class="container")
+            h3= "User Id: "+userid
+            table(id="statsTable", class="table table-hover")
+                thead
                     tr
-                        td= val.date
-                        td= val.exerciseName
-                        td= val.weighted
-                        td= val.weight
-                        td= val.sets
-                        td= val.reps
+                        th Date
+                        th Exercise Name
+                        th Weighted
+                        th Weight(in lbs)
+                        th Sets
+                        th Reps
+                tbody
+                    each val in message
+                        tr
+                            td= val.date
+                            td= val.exerciseName
+                            td= val.weighted
+                            td= val.weight
+                            td= val.sets
+                            td= val.reps
