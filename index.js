@@ -197,33 +197,27 @@ function receivedMessage(event) {
 app.get('/stats', function(req, res) {
     var userid=req.query.userid
     var message=[]
-    var db = new sqlite3.Database('//145.14.145.227/userData.db',function(err){
-		if(err){
-			return console.log('Error connecting to database :',err);
-		}
-		console.log('Database connected');
+	const client = new Client({
+		connectionString: process.env.DATABASE_URL,
+		ssl: true,
 	});
-	
-	db.each("select * from userWorkout where userId="+userid+" order by rowid desc", function(err, row) {
-        var temp={
-            "date":row.dateTime,
-            "exerciseName":row.exerciseName,
-            "weighted":row.weighted,
-            "weight":row.weight,
-            "sets":row.sets,
-            "reps":row.reps
-        }
-        message.push(temp)
-	});
-
-	//closing database connection
-	db.close(function(err){
-		if(err){
-			return console.log('Error closing database : ',err);
+	client.connect();
+	client.query('select * from userWorkout where userid='+userid+' order by id desc', function(err, res){
+		if (err){ console.log(err);}
+		for (let row of res.rows) {
+			var temp={
+				"date":row.datetime,
+				"exerciseName":row.exercisename,
+				"weighted":row.weighted,
+				"weight":row.weight,
+				"sets":row.sets,
+				"reps":row.reps
+			}
+			message.push(temp)
 		}
-        console.log('Closing database connection');
+		client.end();
         res.render('stats',{userid:userid,message:message})
-    });
+	});
 })
 
 //send generic stats msg
@@ -467,7 +461,7 @@ function trackWorkout(recipientId,exerciseName,sets,reps,weights){
 		ssl: true,
 	});
 	client.connect();
-	client.query('INSERT INTO userWorkout(userid,exerciseName,weighted,weight,sets,reps) VALUES ($1,$2,$3,$4,$5,$6);',values, function(err, res){
+	client.query('INSERT INTO userWorkout(userid,exercisename,weighted,weight,sets,reps) VALUES ($1,$2,$3,$4,$5,$6);',values, function(err, res){
 		if (err){ console.log(err);}
 		client.end();
 		sendTextMessage(recipientId,coolMsgs[Math.floor(Math.random() * coolMsgs.length)]);
