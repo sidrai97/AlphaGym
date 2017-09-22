@@ -20,7 +20,7 @@ html
             var url_string = location.href
             var url = new URL(url_string)
             var userid = url.searchParams.get("userid")
-            console.log(c);
+            console.log(userid);
             console.log("https://graph.facebook.com/v2.6/"+userid)
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
