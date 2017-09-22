@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const exercises_data = require('./scrapper/exercises_data.json')
 const isNumeric = require("isnumeric")
-const sqlite3 = require('sqlite3').verbose();
+const postgres = require("pg")
 
 const app = express()
 const token = process.env.FB_VERIFY_TOKEN
@@ -181,9 +181,6 @@ function receivedMessage(event) {
 				var sets=msgData[2];
 				var reps=msgData[3];
 				trackWorkout(senderID,exerciseName,sets,reps,weights);
-				break;
-			case msg.includes('testdb'):
-				testDB(senderID);
 				break;
 			default:
 				console.log(messageText);
@@ -457,51 +454,23 @@ function sendExerciseDetails(recipientID,muscle,pos){
 
 //track exercise details
 function trackWorkout(recipientId,exerciseName,sets,reps,weights){
-	var db = new sqlite3.Database('//145.14.145.227/userData.db',function(err){
-		if(err){
-			return console.log('Error connecting to database :',err);
-		}
-		console.log('Database connected');
-	});
-	var date=new Date();
-	date=date.toLocaleString();
-	var stmt = db.prepare("INSERT INTO userWorkout VALUES (?,?,?,?,?,?,?)");
+	var coolMsgs=["No Pain,No Gain!","Alright! keep going","Cool! what's next?","Good Job!"]
+	var values;
 	if(weights==undefined){
-		stmt.run(recipientId,date,exerciseName,"no","0",sets,reps);
+		values=[recipientId,exerciseName,"no","0",sets,reps];
 	}
 	else{
-		stmt.run(recipientId,date,exerciseName,"yes",weights,sets,reps);
+		values=[recipientId,exerciseName,"yes",weights,sets,reps];
 	}
-	stmt.finalize();
-	//closing database connection
-	db.close(function(err){
-		if(err){
-			return console.log('Error closing database : ',err);
-		}
-		console.log('Closing database connection');
+	const client = new Client({
+		connectionString: process.env.DATABASE_URL,
+		ssl: true,
 	});
-	var coolMsgs=["No Pain,No Gain!","Alright! keep going","Cool! what's next?","Good Job!"]
-	sendTextMessage(recipientId,coolMsgs[Math.floor(Math.random() * coolMsgs.length)]);
-}
-//
-function testDB(recipientId){
-	var db = new sqlite3.Database('//145.14.145.227/userData.db',function(err){
-		if(err){
-			return console.log('Error connecting to database :',err);
-		}
-		console.log('Database connected');
-	});
-	
-	db.each("SELECT * FROM userWorkout where userId="+recipientId, function(err, row) {
-		console.log(row.exerciseName);
-	});
-
-	//closing database connection
-	db.close(function(err){
-		if(err){
-			return console.log('Error closing database : ',err);
-		}
-		console.log('Closing database connection');
+	client.connect();
+	client.query('INSERT INTO userWorkout(userid,exerciseName,weighted,weight,sets,reps) VALUES ($1,$2,$3,$4,$5,$6);',values, function(err, res){
+		if (err){ console.log(err);}
+		client.end();
+		sendTextMessage(recipientId,coolMsgs[Math.floor(Math.random() * coolMsgs.length)]);
 	});
 }
 
