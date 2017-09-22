@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const exercises_data = require('./scrapper/exercises_data.json')
 const isNumeric = require("isnumeric")
-const postgres = require("pg")
+const { Client } = require('pg');
 
 const app = express()
 const token = process.env.FB_VERIFY_TOKEN
@@ -462,7 +462,7 @@ function trackWorkout(recipientId,exerciseName,sets,reps,weights){
 	else{
 		values=[recipientId,exerciseName,"yes",weights,sets,reps];
 	}
-	const client = new postgres({
+	const client = new Client({
 		connectionString: process.env.DATABASE_URL,
 		ssl: true,
 	});
