@@ -462,7 +462,7 @@ function trackWorkout(recipientId,exerciseName,sets,reps,weights){
 	else{
 		values=[recipientId,exerciseName,"yes",weights,sets,reps];
 	}
-	const client = new Client({
+	const client = new postgres({
 		connectionString: process.env.DATABASE_URL,
 		ssl: true,
 	});
