@@ -31,6 +31,10 @@ html
             xhttp.open("GET", "https://graph.facebook.com/v2.6/"+userid, true);
             xhttp.send();
     script(type='text/javascript').
+        var url_string = location.href
+        var url = new URL(url_string)
+        var userid = url.searchParams.get("userid")
+        console.log(userid);
         $.ajax({
             url: "https://graph.facebook.com/v2.6/"+userid+"?access_token=EAAHTevQllzYBAPueASJIDAWlCJnWiZCYy0M9KmVv3Tjw2yXTUkdROnIf3ZCqzu6uSeTKDFIgGNMioocOJ08m0qY516b9C2FF7bA8l3XsyMto27a4wn3cqzMxrOhyaF5wuKtk5ZCyB6iZAXbf8wcCqsKgZCLKGUFS5zbYW245O8wZDZD",
             success: function(data) {
