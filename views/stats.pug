@@ -50,9 +50,9 @@ html
                 tbody
                     each val in message
                         tr
-                            td= val.date
-                            td= val.exerciseName
+                            td(class="text-center")= val.date
+                            td(class="text-center")= val.exerciseName
                             //-td= val.weighted
-                            td= val.weight
-                            td= val.sets
-                            td= val.reps
+                            td(class="text-center")= val.weight
+                            td(class="text-center")= val.sets
+                            td(class="text-center")= val.reps
