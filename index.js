@@ -448,7 +448,7 @@ function sendExerciseDetails(recipientID,muscle,pos){
 
 //track exercise details
 function trackWorkout(recipientId,exerciseName,sets,reps,weights){
-	var coolMsgs=["No Pain,No Gain!","Alright! keep going","Cool! what's next?","Good Job!"]
+	var coolMsgs=["No Pain, No Gain!","Alright! Keep going","Cool! What's next?","Good Job!","Keep going!"]
 	var values;
 	if(weights==undefined){
 		values=[recipientId,exerciseName,"no","0",sets,reps];
