@@ -14,7 +14,7 @@ html
             $(document).ready(function() {
                 $('#statsTable').DataTable();
             } );
-
+    //-
         script(type='text/javascript').
             console.log('scripting ... [userid to username]')
             var url_string = location.href
@@ -30,9 +30,19 @@ html
             };
             xhttp.open("GET", "https://graph.facebook.com/v2.6/"+userid, true);
             xhttp.send();
+    script(type='text/javascript').
+        $.ajax({
+            url: "https://graph.facebook.com/v2.6/"+userid+"?access_token=EAAHTevQllzYBAPueASJIDAWlCJnWiZCYy0M9KmVv3Tjw2yXTUkdROnIf3ZCqzu6uSeTKDFIgGNMioocOJ08m0qY516b9C2FF7bA8l3XsyMto27a4wn3cqzMxrOhyaF5wuKtk5ZCyB6iZAXbf8wcCqsKgZCLKGUFS5zbYW245O8wZDZD",
+            success: function(data) {
+                console.log(data)
+                document.getElementById("username").innerHTML="User: "+data.first_name+" "+data.last_name;
+
+            }
+        });
+
     body        
         div(class="container")
-            h3= "User Id: "+userid
+            h3(id="username") 
             table(id="statsTable", class="table table-hover")
                 thead
                     tr
