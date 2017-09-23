@@ -13,24 +13,7 @@ html
             console.log('yoo')
             $(document).ready(function() {
                 $('#statsTable').DataTable();
-            } );
-        //-
-            script(type='text/javascript').
-                console.log('scripting ... [userid to username]')
-                var url_string = location.href
-                var url = new URL(url_string)
-                var userid = url.searchParams.get("userid")
-                console.log(userid);
-                console.log("https://graph.facebook.com/v2.6/"+userid)
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        console.log(xhttp.responseText);
-                    }
-                };
-                xhttp.open("GET", "https://graph.facebook.com/v2.6/"+userid, true);
-                xhttp.send();
-
+            });
         script(type='text/javascript').
             var url_string = location.href
             var url = new URL(url_string)
@@ -42,16 +25,18 @@ html
                     console.log(data)
                     document.getElementById("profilePicture").src = data.profile_pic
                     document.getElementById("username").innerHTML=data.first_name+" "+data.last_name;
+                    document.title = data.first_name+"'s workout stats"
                 }
             });
 
-    body(style="background:#303030;")        
-        div(class="container")
+    body        
+        div(class="container", style="background:#303030;")
             br
             img(id="profilePicture", class="img img-responsive img-circle col-lg-2 col-md-3 col-sm-4 col-xs-4 col-lg-offset-5 col-md-offset-6 col-sm-offset-4 col-xs-offset-4")
             br
             h3(id="username" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" style="color:#FFD700;") 
-            table(id="statsTable", class="table table-hover" style="color:#ffffff;")
+        div(class="container-fluid")
+            table(id="statsTable", class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 table table-striped table-bordered" style="color:#ffffff;")
                 thead
                     tr
                         th Date

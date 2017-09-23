@@ -145,7 +145,7 @@ function receivedMessage(event) {
 	  	// and send back the example. Otherwise, just echo the text we received.
 		var msg=messageText.toLowerCase();
 		switch (true) {
-			case msg.includes('hi') || msg.includes('hello') || msg.includes('hey') || msg.includes('yo') || msg.includes('hy'):
+			case msg.includes('hi') || msg.includes('hello') || msg.includes('hey') || msg.includes('yo') || msg.includes('hy') || msg.includes('ping'):
 				sendTextMessage(senderID,"Hi Alpha! You can use the following commands to know more.");
 				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
 				break;
@@ -239,7 +239,7 @@ function sendStatsMessage(recipientId){
 							buttons:[{
 								type:"web_url",
 								url:"https://sleepy-bayou-84695.herokuapp.com/stats?userid="+recipientId,
-								title:"View statistics",
+								title:"View stats",
 								webview_height_ratio:"full"
 							}] 
 						}
