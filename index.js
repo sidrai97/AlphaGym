@@ -226,6 +226,7 @@ app.get('/stats', function(req, resp) {
 				if (!error && response.statusCode == 200) {
 					//fbResponse = body;
 					//console.log(body);
+					body = JSON.parse(body)
 					var tmp = {
 							"first_name": body.first_name,
 							"last_name": body.last_name,
