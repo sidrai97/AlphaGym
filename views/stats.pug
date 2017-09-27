@@ -20,7 +20,7 @@ html
             var url = new URL(url_string)
             var userid = url.searchParams.get("userid")
             
-            var userinfo = !{userdata}
+            var userinfo = !{JSON.parse(userdata)} ;
             console.log(userinfo);
             document.getElementById("profilePicture").src = userinfo.profile_pic;
             document.getElementById("username").innerHTML=userinfo.first_name+" "+userinfo.last_name;
