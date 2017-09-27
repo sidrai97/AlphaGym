@@ -145,6 +145,21 @@ function receivedMessage(event) {
 	  	// and send back the example. Otherwise, just echo the text we received.
 		var msg=messageText.toLowerCase();
 		switch (true) {
+			case (msg.split('/').length-1)==2:
+				var msgData=msg.split('/')
+				var exerciseName=msgData[0];
+				var sets=msgData[1];
+				var reps=msgData[2];
+				trackWorkout(senderID,exerciseName,sets,reps);
+				break;
+			case (msg.split('/').length-1)==3:
+				var msgData=msg.split('/')
+				var exerciseName=msgData[0];
+				var weights=msgData[1];
+				var sets=msgData[2];
+				var reps=msgData[3];
+				trackWorkout(senderID,exerciseName,sets,reps,weights);
+				break;
 			case msg.includes('hi') || msg.includes('hello') || msg.includes('hey') || msg.includes('yo') || msg.includes('hy') || msg.includes('ping'):
 				sendTextMessage(senderID,"Hi Alpha! You can use the following commands to know more.");
 				setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
@@ -167,24 +182,9 @@ function receivedMessage(event) {
 				var muscles = Object.keys(exercises_data['data'])	
 				sendMuscleGroups(senderID,muscles)
 				break;
-			case (msg.split('/').length-1)==2:
-				var msgData=msg.split('/')
-				var exerciseName=msgData[0];
-				var sets=msgData[1];
-				var reps=msgData[2];
-				trackWorkout(senderID,exerciseName,sets,reps);
-				break;
-			case (msg.split('/').length-1)==3:
-				var msgData=msg.split('/')
-				var exerciseName=msgData[0];
-				var weights=msgData[1];
-				var sets=msgData[2];
-				var reps=msgData[3];
-				trackWorkout(senderID,exerciseName,sets,reps,weights);
-				break;
 			default:
 				console.log(messageText);
-				sendTextMessage(senderID,"I'm not sure if I understand you right now!");
+				sendTextMessage(senderID,"I'm not sure if I understand you right now!\nSay 'help' to know more.");
 				//setTimeout(function(){sendDefaultTextMessage(senderID);},1000);
 	  	}
 	} 
