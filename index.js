@@ -224,7 +224,6 @@ app.get('/stats', function(req, resp) {
 				method: 'GET'
 			}, function (error, response, body) {
 				if (!error && response.statusCode == 200) {
-					//console.log("user profile body:", body);
 					fbResponse = body;
 					console.log(fbResponse);
 				} 
@@ -235,7 +234,7 @@ app.get('/stats', function(req, resp) {
 				}
 			});
 		//
-		resp.render('stats',{userid:userid,message:message,userdata:fbResponse})
+		resp.render('stats',{userid:userid,message:message,userdata:JSON.stringify(fbResponse)})
 	});
 })
 
