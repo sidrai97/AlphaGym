@@ -196,7 +196,8 @@ function receivedMessage(event) {
 //handle stats get request
 app.get('/stats', function(req, resp) {
     var userid=req.query.userid
-    var message=[]
+	var message=[]
+	var fbResponse = ""
 	const client = new Client({
 		connectionString: process.env.DATABASE_URL,
 		ssl: true,
@@ -216,7 +217,24 @@ app.get('/stats', function(req, resp) {
 			message.push(temp)
 		}
 		client.end();
-		resp.render('stats',{userid:userid,message:message})
+		//call to fb for user data
+		fbResponse 
+		var options = {
+				host: "https://graph.facebook.com/v2.6/"+userid+"?access_token=EAAHTevQllzYBAPueASJIDAWlCJnWiZCYy0M9KmVv3Tjw2yXTUkdROnIf3ZCqzu6uSeTKDFIgGNMioocOJ08m0qY516b9C2FF7bA8l3XsyMto27a4wn3cqzMxrOhyaF5wuKtk5ZCyB6iZAXbf8wcCqsKgZCLKGUFS5zbYW245O8wZDZD",
+				method: 'GET'
+			};
+
+			http.request(options, function(res) {
+			//console.log('STATUS: ' + res.statusCode);
+			//console.log('HEADERS: ' + JSON.stringify(res.headers));
+			//res.setEncoding('utf8');
+			res.on('data', function (chunk) {
+				console.log('BODY: ' + chunk);
+				fbResponse = chunk
+			});
+			}).end();
+		//
+		resp.render('stats',{userid:userid,message:message,userdata:fbResponse})
 	});
 })
 
@@ -246,7 +264,8 @@ function sendStatsMessage(recipientId){
 					]
 				}
 			}
-		}
+		},
+		userdata: fbResponse
 	};
 	callSendAPI(messageData);
 }
