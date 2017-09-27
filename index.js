@@ -197,7 +197,7 @@ function receivedMessage(event) {
 app.get('/stats', function(req, resp) {
     var userid=req.query.userid
 	var message=[]
-	var fbResponse
+	var fbResponse=[]
 	const client = new Client({
 		connectionString: process.env.DATABASE_URL,
 		ssl: true,
@@ -226,7 +226,7 @@ app.get('/stats', function(req, resp) {
 				if (!error && response.statusCode == 200) {
 					//fbResponse = body;
 					//console.log(body);
-					fbresponse = {
+					var tmp = {
 							"first_name": body.first_name,
 							"last_name": body.last_name,
 							"profile_pic":body.profile_pic, 
@@ -235,6 +235,7 @@ app.get('/stats', function(req, resp) {
 							"gender": body.gender,
 							"id": body.id
 					}
+					fbResponse.push(tmp)
 					console.log(fbResponse)
 				} 
 				else {
