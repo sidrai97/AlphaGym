@@ -238,6 +238,7 @@ app.get('/stats', function(req, resp) {
 					}
 					fbResponse.push(tmp)
 					console.log(fbResponse)
+					resp.render('stats',{userid:userid,message:message,userdata:JSON.stringify(fbResponse)})
 				} 
 				else {
 					console.error("Unable to send message.");
@@ -245,8 +246,6 @@ app.get('/stats', function(req, resp) {
 					console.error(error);
 				}
 			});
-		//
-		resp.render('stats',{userid:userid,message:message,userdata:JSON.stringify(fbResponse)})
 	});
 })
 
