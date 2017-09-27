@@ -1,7 +1,5 @@
 html
     head
-        userinfo= userdata
-        stupid= sample 
         title Workout Statistics
         meta(charset="utf-8")
         link(rel="shortcut icon", href="https://cdn.dribbble.com/users/143433/screenshots/2325148/untitled-1.png", type="image/png")
@@ -21,9 +19,8 @@ html
             var url_string = location.href
             var url = new URL(url_string)
             var userid = url.searchParams.get("userid")
-            console.log(userid);
-            console.log(!{sample});
-            //var userinfo = !{userdata}
+            
+            var userinfo = !{userdata}
             console.log(userinfo.toString());
             document.getElementById("profilePicture").src = userinfo.profile_pic;
             document.getElementById("username").innerHTML=userinfo.first_name+" "+userinfo.last_name;
