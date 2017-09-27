@@ -20,7 +20,7 @@ html
             var url = new URL(url_string)
             var userid = url.searchParams.get("userid")
             console.log(userid);
-            var userinfo = userdata
+            var userinfo = !{userdata}
             console.log(userinfo);
             document.getElementById("profilePicture").src = userinfo.profile_pic;
             document.getElementById("username").innerHTML=userinfo.first_name+" "+userinfo.last_name;
@@ -38,6 +38,8 @@ html
         
         div(class="container-fluid", style="background:#000000; padding:5px;")
         div(class="container", style="background: #a0a0a0;")
+            each t in userdata
+            p=JSON.stringify(t)
             table(id="statsTable", class="col-lg-10 col-md-10 col-sm-10 col-xs-10 table " style="")
                 thead
                     tr
