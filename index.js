@@ -197,7 +197,7 @@ function receivedMessage(event) {
 app.get('/stats', function(req, resp) {
     var userid=req.query.userid
 	var message=[]
-	var fbResponse = ""
+	var fbResponse
 	const client = new Client({
 		connectionString: process.env.DATABASE_URL,
 		ssl: true,
