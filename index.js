@@ -218,31 +218,15 @@ app.get('/stats', function(req, resp) {
 		}
 		client.end();
 		//call to fb for user data
-		/*fbResponse 
-		var options = {
-				host: ,
-				method: 'GET'
-			};
-
-			http.request(options, function(res) {
-			console.log('STATUS: ' + res.statusCode);
-			console.log('HEADERS: ' + JSON.stringify(res.headers));
-			//res.setEncoding('utf8');
-			res.on('data', function (chunk) {
-				console.log('BODY: ' + chunk);
-				fbResponse = chunk
-			});
-			}).end();*/
-
-			request({
+		request({
 				uri: "https://graph.facebook.com/v2.6/"+userid,
 				qs: { access_token: "EAAHTevQllzYBAPueASJIDAWlCJnWiZCYy0M9KmVv3Tjw2yXTUkdROnIf3ZCqzu6uSeTKDFIgGNMioocOJ08m0qY516b9C2FF7bA8l3XsyMto27a4wn3cqzMxrOhyaF5wuKtk5ZCyB6iZAXbf8wcCqsKgZCLKGUFS5zbYW245O8wZDZD" },
 				method: 'GET'
 			}, function (error, response, body) {
 				if (!error && response.statusCode == 200) {
-					console.log("user profile body:", body);
+					//console.log("user profile body:", body);
 					fbResponse = body;
-
+					console.log(fbResponse);
 				} 
 				else {
 					console.error("Unable to send message.");
@@ -281,8 +265,7 @@ function sendStatsMessage(recipientId){
 					]
 				}
 			}
-		},
-		userdata: fbResponse
+		}
 	};
 	callSendAPI(messageData);
 }

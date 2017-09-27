@@ -11,7 +11,7 @@ html
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
         script(type='text/javascript').
-            console.log('yoo')
+            //console.log('yoo')
             $(document).ready(function() {
                 $('#statsTable').DataTable();
             });
@@ -19,19 +19,12 @@ html
             var url_string = location.href
             var url = new URL(url_string)
             var userid = url.searchParams.get("userid")
-            document.getElementById("profilePicture").src = userdata.profile_pic
+            console.log(userid);
+            console.log(userdata);
+            document.getElementById("profilePicture").src = userdata.profile_pic;
             document.getElementById("username").innerHTML=userdata.first_name+" "+userdata.last_name;
             document.title = userdata.first_name+"'s workout stats"
-          /*  console.log(userid);
-            $.ajax({
-                url: "https://graph.facebook.com/v2.6/"+userid+"?access_token=EAAHTevQllzYBAPueASJIDAWlCJnWiZCYy0M9KmVv3Tjw2yXTUkdROnIf3ZCqzu6uSeTKDFIgGNMioocOJ08m0qY516b9C2FF7bA8l3XsyMto27a4wn3cqzMxrOhyaF5wuKtk5ZCyB6iZAXbf8wcCqsKgZCLKGUFS5zbYW245O8wZDZD",
-                success: function(data) {
-                    console.log(data)
-                    document.getElementById("profilePicture").src = data.profile_pic
-                    document.getElementById("username").innerHTML=data.first_name+" "+data.last_name;
-                    document.title = data.first_name+"'s workout stats"
-                }
-            });*/
+          
 
     body(style="background: #a0a0a0;")
         div(class="container-fluid" style="background:#000000;")
