@@ -224,8 +224,18 @@ app.get('/stats', function(req, resp) {
 				method: 'GET'
 			}, function (error, response, body) {
 				if (!error && response.statusCode == 200) {
-					fbResponse = body;
-					console.log(fbResponse);
+					//fbResponse = body;
+					console.log(body);
+					fbresponse = {
+							"first_name": body.first_name,
+							"last_name": body.last_name,
+							"profile_pic":body.profile_pic, 
+							"locale": body.locale,
+							"timezone": body.timezone,
+							"gender": body.gender,
+							"id": body.id
+					}
+
 				} 
 				else {
 					console.error("Unable to send message.");
