@@ -217,6 +217,7 @@ app.get('/stats', function(req, resp) {
 			message.push(temp)
 		}
 		client.end();
+		
 		//call to fb for user data
 		request({
 				uri: "https://graph.facebook.com/v2.6/"+userid,
@@ -224,8 +225,6 @@ app.get('/stats', function(req, resp) {
 				method: 'GET'
 			}, function (error, response, body) {
 				if (!error && response.statusCode == 200) {
-					//fbResponse = body;
-					//console.log(body);
 					body = JSON.parse(body)
 					var tmp = {
 							"first_name": body.first_name,
@@ -237,7 +236,7 @@ app.get('/stats', function(req, resp) {
 							"id": body.id
 					}
 					fbResponse.push(tmp)
-					console.log(fbResponse)
+					//console.log(fbResponse)
 					resp.render('stats',{userid:userid,message:message,userdata:JSON.stringify(fbResponse)})
 				} 
 				else {

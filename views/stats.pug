@@ -11,15 +11,14 @@ html
         script(src="https://code.jquery.com/jquery-1.12.4.js")
         script(src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
         script(type='text/javascript').
-            //console.log('yoo')
             $(document).ready(function() {
                 $('#statsTable').DataTable();
             });        
 
     body(style="background: #a0a0a0;")
-        div(class="container-fluid" style="background:#000000;")
+        div(class="container-fluid", style="background:#000000;", width="100%")
             img(src="https://cdn.dribbble.com/users/143433/screenshots/2325148/untitled-1.png", class="img img-responsive img-circle col-lg-2 col-md-2 col-sm-4 col-xs-4 col-lg-offset-5 col-md-offset-5 col-sm-offset-4 col-xs-offset-4")       
-        div(class="container-fluid", style="background:#303030;")
+        div(class="container-fluid", style="background:#303030;", width="100%")
             br
             img(id="profilePicture", class="img img-responsive img-circle col-lg-2 col-md-3 col-sm-4 col-xs-4 col-lg-offset-5 col-md-offset-6 col-sm-offset-4 col-xs-offset-4")
             br
@@ -52,7 +51,6 @@ html
             var userid = url.searchParams.get("userid")            
             var userdata =  JSON.parse('!{userdata}');
             var userinfo = userdata[0]
-            console.log(userinfo);
             document.getElementById("profilePicture").src = userinfo.profile_pic;
             document.getElementById("username").innerHTML=userinfo.first_name+" "+userinfo.last_name;
             document.title = userinfo.first_name+"'s workout stats"
