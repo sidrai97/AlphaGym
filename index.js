@@ -234,7 +234,7 @@ app.get('/stats', function(req, resp) {
 				}
 			});
 		//
-		resp.render('stats',{userid:userid,message:message,userdata:JSON.stringify(fbResponse)})
+		resp.render('stats',{userid:userid,message:message,userdata:JSON.parse(fbResponse)})
 	});
 })
 
