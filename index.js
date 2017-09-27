@@ -218,9 +218,9 @@ app.get('/stats', function(req, resp) {
 		}
 		client.end();
 		//call to fb for user data
-		fbResponse 
+		/*fbResponse 
 		var options = {
-				host: "https://graph.facebook.com/v2.6/"+userid+"?access_token=EAAHTevQllzYBAPueASJIDAWlCJnWiZCYy0M9KmVv3Tjw2yXTUkdROnIf3ZCqzu6uSeTKDFIgGNMioocOJ08m0qY516b9C2FF7bA8l3XsyMto27a4wn3cqzMxrOhyaF5wuKtk5ZCyB6iZAXbf8wcCqsKgZCLKGUFS5zbYW245O8wZDZD",
+				host: ,
 				method: 'GET'
 			};
 
@@ -232,7 +232,24 @@ app.get('/stats', function(req, resp) {
 				console.log('BODY: ' + chunk);
 				fbResponse = chunk
 			});
-			}).end();
+			}).end();*/
+
+			request({
+				uri: "https://graph.facebook.com/v2.6/"+userid,
+				qs: { access_token: "EAAHTevQllzYBAPueASJIDAWlCJnWiZCYy0M9KmVv3Tjw2yXTUkdROnIf3ZCqzu6uSeTKDFIgGNMioocOJ08m0qY516b9C2FF7bA8l3XsyMto27a4wn3cqzMxrOhyaF5wuKtk5ZCyB6iZAXbf8wcCqsKgZCLKGUFS5zbYW245O8wZDZD" },
+				method: 'GET'
+			}, function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+					console.log("user profile body:", body);
+					fbResponse = body;
+
+				} 
+				else {
+					console.error("Unable to send message.");
+					console.error(response);
+					console.error(error);
+				}
+			});
 		//
 		resp.render('stats',{userid:userid,message:message,userdata:fbResponse})
 	});
