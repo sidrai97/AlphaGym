@@ -14,19 +14,7 @@ html
             //console.log('yoo')
             $(document).ready(function() {
                 $('#statsTable').DataTable();
-            });
-        script(type='text/javascript').
-            var url_string = location.href
-            var url = new URL(url_string)
-            var userid = url.searchParams.get("userid")
-            
-            var userdata =  JSON.parse('!{userdata}');
-            var userinfo = userdata[0]
-            console.log(userinfo);
-            document.getElementById("profilePicture").src = userinfo.profile_pic;
-            document.getElementById("username").innerHTML=userinfo.first_name+" "+userinfo.last_name;
-            document.title = userinfo.first_name+"'s workout stats"
-          
+            });        
 
     body(style="background: #a0a0a0;")
         div(class="container-fluid" style="background:#000000;")
@@ -57,3 +45,14 @@ html
                             td(class="text-center")= val.weight
                             td(class="text-center")= val.sets
                             td(class="text-center")= val.reps
+        
+    script(type='text/javascript').
+            var url_string = location.href
+            var url = new URL(url_string)
+            var userid = url.searchParams.get("userid")            
+            var userdata =  JSON.parse('!{userdata}');
+            var userinfo = userdata[0]
+            console.log(userinfo);
+            document.getElementById("profilePicture").src = userinfo.profile_pic;
+            document.getElementById("username").innerHTML=userinfo.first_name+" "+userinfo.last_name;
+            document.title = userinfo.first_name+"'s workout stats"
