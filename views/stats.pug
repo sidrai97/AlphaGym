@@ -29,21 +29,21 @@ html
         table(id="statsTable", class="container table" style="")
             thead
                 tr
-                    th(class="", style ="word-break:break-all;") Date
-                    th(class="", style ="word-break:break-all;") Exercise
+                    th(class="col-sm-1", style ="word-break:break-all;") Date
+                    th(class="col-sm-1", style ="word-break:break-all;") Exercise
                     //-th Weighted
-                    th(class="", style ="word-break:break-all;") Weight (in lbs)
-                    th(class="", style ="word-break:break-all;") Sets
-                    th(class="", style ="word-break:break-all;") Reps
+                    th(class="col-sm-1", style ="word-break:break-all;") Weight (in lbs)
+                    th(class="col-sm-1", style ="word-break:break-all;") Sets
+                    th(class="col-sm-1", style ="word-break:break-all;") Reps
             tbody
                 each val in message
                     tr
-                        td(class="", style ="word-break:break-all;")= val.date
-                        td(class="", style ="word-break:break-all;")= val.exerciseName
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.date
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.exerciseName
                         //-td= val.weighted
-                        td(class="", style ="word-break:break-all;")= val.weight
-                        td(class="", style ="word-break:break-all;")= val.sets
-                        td(class="", style ="word-break:break-all;")= val.reps
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.weight
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.sets
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.reps
         
     script(type='text/javascript').
             var url_string = location.href
