@@ -38,12 +38,12 @@ html
             tbody
                 each val in message
                     tr
-                        td(class="col-sm-1")= val.date
-                        td(class="col-sm-2")= val.exerciseName
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.date
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.exerciseName
                         //-td= val.weighted
-                        td(class="col-sm-1")= val.weight
-                        td(class="col-sm-1")= val.sets
-                        td(class="col-sm-1")= val.reps
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.weight
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.sets
+                        td(class="col-sm-1", style ="word-break:break-all;")= val.reps
         
     script(type='text/javascript').
             var url_string = location.href
