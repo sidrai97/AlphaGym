@@ -30,7 +30,7 @@ html
             thead
                 tr
                     th(class="", style ="word-break:break-all;") Date
-                    th(class="col-sm-2", style ="word-break:break-all;") Exercise
+                    th(class="", style ="word-break:break-all;") Exercise
                     //-th Weighted
                     th(class="", style ="word-break:break-all;") Weight (in lbs)
                     th(class="", style ="word-break:break-all;") Sets
@@ -39,7 +39,7 @@ html
                 each val in message
                     tr
                         td(class="", style ="word-break:break-all;")= val.date
-                        td(class="col-sm-2", style ="word-break:break-all;")= val.exerciseName
+                        td(class="", style ="word-break:break-all;")= val.exerciseName
                         //-td= val.weighted
                         td(class="", style ="word-break:break-all;")= val.weight
                         td(class="", style ="word-break:break-all;")= val.sets
