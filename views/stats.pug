@@ -29,21 +29,21 @@ html
             table(id="statsTable", class=" container table " style="")
                 thead
                     tr
-                        th(class="text-center") DATE
-                        th(class="text-center") EXERCISE
+                        th(class="text-center, col-sm-1") DATE
+                        th(class="text-center, col-sm-2") EXERCISE
                         //-th Weighted
-                        th(class="text-center") WEIGHT (in lbs)
-                        th(class="text-center") SETS
-                        th(class="text-center") REPS
+                        th(class="text-center, col-sm-1") WEIGHT (in lbs)
+                        th(class="text-center, col-sm-1") SETS
+                        th(class="text-center, col-sm-1") REPS
                 tbody
                     each val in message
                         tr
-                            td(class="text-center")= val.date
-                            td(class="text-center")= val.exerciseName
+                            td(class="text-center, col-sm-1")= val.date
+                            td(class="text-center, col-sm-2")= val.exerciseName
                             //-td= val.weighted
-                            td(class="text-center")= val.weight
-                            td(class="text-center")= val.sets
-                            td(class="text-center")= val.reps
+                            td(class="text-center, col-sm-1")= val.weight
+                            td(class="text-center, col-sm-1")= val.sets
+                            td(class="text-center, col-sm-1")= val.reps
         
     script(type='text/javascript').
             var url_string = location.href
