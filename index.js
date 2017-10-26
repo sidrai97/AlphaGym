@@ -208,8 +208,9 @@ app.get('/stats', function(req, resp) {
 	client.query('select * from userWorkout where userid='+userid+' order by id desc', function(err, res){
 		if (err){ console.log(err);}
 		for (let row of res.rows) {
+			console.log(row)
 			var temp={
-				"date":row.datetime,
+				"date":row.datetime.substring(0,16),
 				"exerciseName":row.exercisename,
 				"weighted":row.weighted,
 				"weight":row.weight,
