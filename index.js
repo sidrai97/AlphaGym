@@ -63,6 +63,7 @@ app.post('/webhook', function (req, res) {
 	}
 });
 
+//postback rules
 function receivedPostback(event) {
 	var senderID = event.sender.id;
 	var recipientID = event.recipient.id;
@@ -127,6 +128,7 @@ function receivedPostback(event) {
 	}
 }
 
+//text message rules
 function receivedMessage(event) {
 	var senderID = event.sender.id;
 	var recipientID = event.recipient.id;
