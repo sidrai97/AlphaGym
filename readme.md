@@ -4,10 +4,11 @@
 
 ## Technologies 
 
-* NodeJS
-* Python
-* PostgreSQL
+* NodeJS (Chatbot Wrapper)
+* Python (Scraping)
+* PostgreSQL (User Data storage)
 * Heroku (Deployment)
+* Facebook Messenger API
 
 -----
 
